@@ -1,0 +1,198 @@
+<!-- <div class="login-wrapper">
+    <button class="btn-cerrar-sesion" (click)="logout()">Volver</button>
+    <div class="login-card">
+        <button class="btn-close" (click)="cancelar()">×</button>
+        <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+        <form (ngSubmit)="login()" class="d-flex flex-column gap-3">
+            <div>
+                <label for="usuario" class="form-label">Correo electrónico</label>
+                <input id="usuario" type="email" class="form-control" [(ngModel)]="usuario" name="usuario" required />
+            </div>
+
+            <div>
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input id="contrasena" type="password" class="form-control" [(ngModel)]="contrasena" name="contrasena" required />
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            <button type="button" class="btn btn-outline-secondary w-100" (click)="irARegistro()">Registrarme</button>
+        </form>
+
+        <div class="acceso-rapido mt-4 d-flex justify-content-center gap-3 flex-wrap">
+            <button botonesRedondos (click)="loginRapido('labip68624@cristout.com', 'fotoPerfilPaciente1')"
+                [disabled]="cargando">
+                <img *ngIf="cargando !== 'fotoPerfilPaciente1'; else spinner1" src="assets/img/fotoPerfilPaciente1.jpg"
+                    alt="Paciente 1" />
+                <ng-template #spinner1>
+                    <div class="spinner-border text-primary" role="status"></div>
+                </ng-template>
+            </button>
+
+            <button botonesRedondos (click)="loginRapido('unemaildeprueba9871@gmail.com', 'fotoPerfilPaciente2')"
+                [disabled]="cargando">
+                <img *ngIf="cargando !== 'fotoPerfilPaciente2'; else spinner2" src="assets/img/fotoPerfilPaciente2.jpg"
+                    alt="Paciente 2" />
+                <ng-template #spinner2>
+                    <div class="spinner-border text-primary" role="status"></div>
+                </ng-template>
+            </button>
+
+            <button botonesRedondos (click)="loginRapido('unemaildeprueba9872@gmail.com', 'fotoPerfilPaciente3')"
+                [disabled]="cargando">
+                <img *ngIf="cargando !== 'fotoPerfilPaciente3'; else spinner3" src="assets/img/fotoPerfilPaciente3.jpg"
+                    alt="Paciente 3" />
+                <ng-template #spinner3>
+                    <div class="spinner-border text-primary" role="status"></div>
+                </ng-template>
+            </button>
+
+            <button botonesRedondos (click)="loginRapido('clm987@gmail.com', 'fotoPerfilEspecialista1')"
+                [disabled]="cargando">
+                <img *ngIf="cargando !== 'fotoPerfilEspecialista1'; else spinner4"
+                    src="assets/img/fotoPerfilEspecialista1.jpg" alt="Especialista 1" />
+                <ng-template #spinner4>
+                    <div class="spinner-border text-primary" role="status"></div>
+                </ng-template>
+            </button>
+
+            <button botonesRedondos (click)="loginRapido('unemaildeprueba9873@gmail.com', 'fotoPerfilEspecialista2')"
+                [disabled]="cargando">
+                <img *ngIf="cargando !== 'fotoPerfilEspecialista2'; else spinner5"
+                    src="assets/img/fotoPerfilEspecialista2.jpg" alt="Especialista 2" />
+                <ng-template #spinner5>
+                    <div class="spinner-border text-primary" role="status"></div>
+                </ng-template>
+            </button>
+
+            <button botonesRedondos (click)="loginRapido('unemaildeprueba987@gmail.com', 'fotoPerfilAdmin')"
+                [disabled]="cargando">
+                <img *ngIf="cargando !== 'fotoPerfilAdmin'; else spinner6" src="assets/img/fotoPerfilAdmin.jpg"
+                    alt="Admin" />
+                <ng-template #spinner6>
+                    <div class="spinner-border text-primary" role="status"></div>
+                </ng-template>
+            </button>
+        </div>
+
+        <app-mensaje *ngIf="mensajeVisible" [mensaje]="mensajeTexto" [tipo]="mensajeTipo"
+            [autoCerrar]="false"></app-mensaje>
+    </div>
+</div> -->
+
+<div class="login-wrapper">
+  <!-- <button class="btn-cerrar-sesion" (click)="logout()">Volver</button> -->
+
+  <div class="login-card">
+     <button class="btn-cerrar-sesion" (click)="volverHome()">← Volver</button>
+     
+    <button class="btn-close" (click)="cancelar()">×</button>
+    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="d-flex flex-column gap-3">
+      <!-- Campo EMAIL -->
+      <div>
+        <label for="usuario" class="form-label">Correo electrónico</label>
+        <input
+          id="usuario"
+          type="email"
+          class="form-control"
+          formControlName="usuario"
+          [class.is-invalid]="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.invalid"
+        />
+        <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.errors?.['required']">
+          El correo es obligatorio.
+        </div>
+        <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.errors?.['email']">
+          Ingresá un correo válido.
+        </div>
+      </div>
+
+      <!-- Campo CONTRASEÑA -->
+      <div>
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <input
+          id="contrasena"
+          type="password"
+          class="form-control"
+          formControlName="contrasena"
+          [class.is-invalid]="loginForm.get('contrasena')?.touched && loginForm.get('contrasena')?.invalid"
+        />
+        <div class="invalid-feedback" *ngIf="loginForm.get('contrasena')?.errors?.['required']">
+          La contraseña es obligatoria.
+        </div>
+      </div>
+
+      <br />
+
+      <!-- BOTONES -->
+    <!--   <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Ingresar</button>
+      <button type="button" class="btn btn-outline-secondary w-100" (click)="irARegistro()">Registrarme</button> -->
+
+<div class="botones-login">
+  <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+  <button type="button" class="btn btn-outline-secondary w-100" (click)="irARegistro()">Registrarme</button>
+</div>
+
+
+    </form>
+
+    <!-- ACCESO RÁPIDO -->
+    <div class="acceso-rapido mt-4 d-flex justify-content-center gap-3 flex-wrap">
+
+  <!--     <button botonesRedondos (click)="loginRapido('labip68624@cristout.com', 'fotoPerfilPaciente1')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilPaciente1'; else spinner1" src="assets/img/fotoPerfilPaciente1.jpg" alt="Paciente 1" />
+        <ng-template #spinner1>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button> -->
+
+      <button botonesRedondos (click)="loginRapido('asd3@gmail.com', 'fotoPerfilPaciente2')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilPaciente2'; else spinner2" src="assets/img/fotoPerfilPaciente2.jpg" alt="Paciente 2" />
+        <ng-template #spinner2>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button>
+
+      <button botonesRedondos (click)="loginRapido('asd5@gmail.com', 'fotoPerfilPaciente3')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilPaciente3'; else spinner3" src="assets/img/fotoPerfilPaciente3.jpg" alt="Paciente 3" />
+        <ng-template #spinner3>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button>
+
+      <button botonesRedondos (click)="loginRapido('asd2@gmail.com', 'fotoPerfilEspecialista1')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilEspecialista1'; else spinner4" src="assets/img/fotoPerfilEspecialista1.jpg" alt="Especialista 1" />
+        <ng-template #spinner4>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button>
+
+      <button botonesRedondos (click)="loginRapido('asd@gmail.com', 'fotoPerfilEspecialista2')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilEspecialista2'; else spinner5" src="assets/img/fotoPerfilEspecialista2.jpg" alt="Especialista 2" />
+        <ng-template #spinner5>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button>
+
+
+ <button botonesRedondos (click)="loginRapido('asd10@gmail.com', 'fotoPerfilEspecialista2')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilEspecialista2'; else spinner5" src="assets/img/fotoPerfilEspecialista2.jpg" alt="Especialista 2" />
+        <ng-template #spinner5>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button>
+
+
+      <button botonesRedondos (click)="loginRapido('martinraularrua@gmail.com', 'fotoPerfilAdmin')" [disabled]="cargando">
+        <img *ngIf="cargando !== 'fotoPerfilAdmin'; else spinner6" src="assets/img/fotoPerfilAdmin.jpg" alt="Admin" />
+        <ng-template #spinner6>
+          <div class="spinner-border text-primary" role="status"></div>
+        </ng-template>
+      </button>
+    </div>
+
+    <!-- MENSAJE -->
+    <app-mensaje *ngIf="mensajeVisible" [mensaje]="mensajeTexto" [tipo]="mensajeTipo" [autoCerrar]="false"></app-mensaje>
+  </div>
+</div>

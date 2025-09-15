@@ -1,0 +1,241 @@
+.turnos-wrapper {
+    background-image: url('../../../../assets/img/fondoClinica.jpg'); 
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    /* overflow-y: auto;  Opcional si querés scroll también en el wrapper */
+}
+
+.turnos-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    max-height: 90vh;       /* Limita la altura máxima a 90% del viewport */
+    overflow-y: auto;       /* Scroll vertical si el contenido excede altura */
+}
+
+.panel-seleccion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.panel-turnos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.fechas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.fecha-btn,
+.hora-btn {
+    margin: 0;
+}
+
+.turnos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.turno-card {
+    min-height: 180px;
+}
+
+.acciones-turno {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.action-btn {
+    margin: 0;
+}
+
+.especialidad-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.especialidad-btn:hover {
+    transform: scale(1.06);
+    transition: transform 0.2s ease;
+}
+
+.especialista-btn {
+    display: inline-block;
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.especialista-btn:hover {
+    transform: scale(1.06);
+}
+
+.especialista-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+}
+
+.nombre-label {
+    font-size: 0.75rem;
+    text-align: center;
+    line-height: 1.1;
+    margin-top: 0.25rem;
+}
+
+button.active {
+    background-color: #0d6efd !important;
+    color: #fff;
+}
+
+.spinner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-salir {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #3546dc;
+    color: white;
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.btn-salir:hover {
+    background-color: #16067d;
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    padding-top: 5vh;
+    z-index: 1050;
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+ /*    max-width: 480px;
+    padding: 1.5rem; */
+
+  max-width: 700px; 
+  padding: 2rem;    
+
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-card select.form-select {
+  background-color: #eef2ff;        /* Fondo azul claro */
+  border: 2px solid #3546dc;        /* Borde azul */
+  border-radius: 8px;               /* Bordes redondeados */
+  color: #333;                      /* Color del texto */
+  font-weight: 500;                 /* Negrita suave */
+  padding: 0.5rem;                  /* Espaciado interno */
+  font-size: 1rem;                  /* Tamaño de letra */
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.modal-card select.form-select:focus {
+  border-color: #16067d;            /* Borde más oscuro en foco */
+  box-shadow: 0 0 0 3px rgba(53, 70, 220, 0.3); /* Sombra azul suave */
+  outline: none;
+}
+
+.modal-card select.form-select {
+  width: 100%;
+}
+
+.modal-card .btn.btn-success {
+  background-color: #28a745;       /* verde Bootstrap */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0.5rem 1.2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-card .btn.btn-success:hover:not(:disabled) {
+  background-color: #218838;
+  transform: scale(1.03);
+}
+
+/* Botón CANCELAR personalizado */
+.modal-card .btn.btn-secondary {
+  background-color: #6c757d;       /* gris Bootstrap */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0.5rem 1.2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-card .btn.btn-secondary:hover:not(:disabled) {
+  background-color: #5a6268;
+  transform: scale(1.03);
+}
+
+
+.turnos-wrapper {
+    background-image: url('../../../../assets/img/fondoClinica.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;              /* cambiar de min-height a height */
+    overflow: hidden;           /* evitamos doble scroll */
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.turnos-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    height: 100%;               /* ocupar todo el espacio disponible */
+    max-height: 100%;           /* asegurar límite vertical */
+    overflow-y: auto;           /* activar scroll si excede */
+}
