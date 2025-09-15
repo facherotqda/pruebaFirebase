@@ -1,3 +1,37 @@
+/* Estilos mejorados para label y select de idioma */
+.lang-bar {
+  margin-top: 1.5rem;
+  margin-right: 2.5rem;
+}
+.lang-label {
+  font-size: 1.15rem;
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-right: 0.7rem;
+  background: #e0f2fe;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.7rem;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(14,40,60,0.08);
+}
+.form-select {
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  border-radius: 0.7rem;
+  border: 1.5px solid #38bdf8;
+  background: #fff;
+  color: #0f172a;
+  font-weight: 600;
+  min-width: 140px;
+  box-shadow: 0 2px 8px rgba(14,40,60,0.08);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-select:focus {
+  border-color: #0284c7;
+  box-shadow: 0 4px 16px rgba(56,189,248,0.12);
+  outline: none;
+}
 /* Reset global y evitar scrolls */
 html, body {
   margin: 0;

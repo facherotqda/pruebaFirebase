@@ -1,0 +1,21 @@
+{
+  "HOME": {
+    "TITLE": "Bem-vindo à página inicial",
+    "DESCRIPTION": "Esta é a visualização inicial.",
+    "SELECT_LANGUAGE": "Selecione o idioma",
+    "SALIR": "Sair"
+  },
+  "LOGIN": {
+    "TITLE": "Entrar",
+    "USERNAME": "Usuário",
+    "PASSWORD": "Senha",
+    "BUTTON": "Acessar"
+  },
+  "REGISTRO": {
+    "TITLE": "Registro de usuário",
+    "USERNAME": "Usuário",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Senha",
+    "BUTTON": "Registrar"
+  }
+}

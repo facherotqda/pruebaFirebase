@@ -1,0 +1,21 @@
+{
+  "HOME": {
+    "TITLE": "Welcome to the home page",
+    "DESCRIPTION": "This is the home view.",
+    "SELECT_LANGUAGE": "Select language",
+    "SALIR": "Logout"
+  },
+  "LOGIN": {
+    "TITLE": "Login",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "BUTTON": "Sign in"
+  },
+  "REGISTRO": {
+    "TITLE": "User registration",
+    "USERNAME": "Username",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "BUTTON": "Register"
+  }
+}
