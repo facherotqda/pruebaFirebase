@@ -1,15 +1,15 @@
 {
   "HOME": {
-  "TITLE": "Welcome to the home page",
-  "DESCRIPTION": "This is the home view.",
-  "SELECT_LANGUAGE": "Select language",
-  "SALIR": "Logout",
-  "BOTON_MIS_TURNOS": "My appointments",
-  "BOTON_MI_PERFIL": "My profile",
-  "BOTON_TURNOS": "Appointments",
-  "BOTON_ADMIN_TURNOS": "Manage Appointments",
-  "BOTON_ADMIN_USUARIOS": "Manage Users",
-  "BOTON_ESTADISTICAS": "Statistics"
+    "TITLE": "Welcome to the home page",
+    "DESCRIPTION": "This is the home view.",
+    "SELECT_LANGUAGE": "Select language",
+    "SALIR": "Logout",
+    "BOTON_MIS_TURNOS": "My appointments",
+    "BOTON_MI_PERFIL": "My profile",
+    "BOTON_TURNOS": "Appointments",
+    "BOTON_ADMIN_TURNOS": "Manage Appointments",
+    "BOTON_ADMIN_USUARIOS": "Manage Users",
+    "BOTON_ESTADISTICAS": "Statistics"
   },
   "LOGIN": {
     "TITLE": "Login",
@@ -18,10 +18,28 @@
     "BUTTON": "Sign in"
   },
   "REGISTRO": {
-    "TITLE": "User registration",
-    "USERNAME": "Username",
+  "PACIENTE": "Patient",
+  "ESPECIALISTA": "Specialist",
+  "TITULO": "Register",
+  "TITLE": "Register",
+    "VOLVER": "Back",
+    "NOMBRE": "First Name",
+    "APELLIDO": "Last Name",
+    "EDAD": "Age",
+    "DNI": "ID Number",
     "EMAIL": "Email",
-    "PASSWORD": "Password",
-    "BUTTON": "Register"
+    "CONTRASENA": "Password",
+    "OBRA_SOCIAL": "Health Insurance",
+    "FOTO_PERFIL": "Profile Photo",
+    "SEGUNDA_IMAGEN": "Second Image",
+    "ESPECIALIDAD": "Specialty",
+    "ESCRIBA_ESPECIALIDAD": "Type a specialty...",
+    "AGREGAR_ESPECIALIDAD_MANUAL": "Add specialty manually",
+    "NUEVA_ESPECIALIDAD": "New specialty",
+    "CAPTCHA_PREGUNTA": "Captcha question",
+    "CAPTCHA_PLACEHOLDER": "Enter your answer",
+    "CAPTCHA_ERROR": "Incorrect captcha answer",
+    "BOTON_REGISTRAR": "Register",
+    "BOTON_CANCELAR": "Cancel"
   }
 }

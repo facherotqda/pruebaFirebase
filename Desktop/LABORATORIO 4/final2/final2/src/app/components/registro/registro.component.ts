@@ -16,6 +16,7 @@ import { FiltroPipe } from '../../pipes/filtro.pipe';
 import { MensajeComponent } from '../../components/mensaje/mensaje.component';
 import { CaptchaDirective } from '../../directivas/captcha.directive';
 import { ChangeDetectorRef } from '@angular/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-registro',
@@ -26,12 +27,26 @@ import { ChangeDetectorRef } from '@angular/core';
     FormsModule,
     FiltroPipe,
     MensajeComponent,
-    CaptchaDirective
+    CaptchaDirective,
+    TranslateModule
   ],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+  idioma: string = 'es';
+  idiomasDisponibles = [
+    { code: 'es', label: 'Español' },
+    { code: 'en', label: 'English' },
+    { code: 'pt', label: 'Português' }
+  ];
+  private translate = inject(TranslateService);
+
+
+  cambiarIdioma(idioma: string) {
+    this.idioma = idioma;
+    this.translate.use(idioma);
+  }
 
    private cd = inject(ChangeDetectorRef);
 

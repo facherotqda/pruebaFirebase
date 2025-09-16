@@ -1,15 +1,15 @@
 {
   "HOME": {
-  "TITLE": "Bienvenido a la página principal",
-  "DESCRIPTION": "Esta es la vista de inicio.",
-  "SELECT_LANGUAGE": "Seleccione idioma",
-  "SALIR": "Salir",
-  "BOTON_MIS_TURNOS": "Mis turnos",
-  "BOTON_MI_PERFIL": "Mi perfil",
-  "BOTON_TURNOS": "Turnos",
-  "BOTON_ADMIN_TURNOS": "Administrar Turnos",
-  "BOTON_ADMIN_USUARIOS": "Administrar Usuarios",
-  "BOTON_ESTADISTICAS": "Estadísticas"
+    "TITLE": "Bienvenido a la página principal",
+    "DESCRIPTION": "Esta es la vista de inicio.",
+    "SELECT_LANGUAGE": "Seleccione idioma",
+    "SALIR": "Salir",
+    "BOTON_MIS_TURNOS": "Mis turnos",
+    "BOTON_MI_PERFIL": "Mi perfil",
+    "BOTON_TURNOS": "Turnos",
+    "BOTON_ADMIN_TURNOS": "Administrar Turnos",
+    "BOTON_ADMIN_USUARIOS": "Administrar Usuarios",
+    "BOTON_ESTADISTICAS": "Estadísticas"
   },
   "LOGIN": {
     "TITLE": "Iniciar sesión",
@@ -18,10 +18,28 @@
     "BUTTON": "Entrar"
   },
   "REGISTRO": {
-    "TITLE": "Registro de usuario",
-    "USERNAME": "Usuario",
+  "PACIENTE": "Paciente",
+  "ESPECIALISTA": "Especialista",
+  "TITULO": "Registro",
+  "TITLE": "Registro",
+    "VOLVER": "Volver",
+    "NOMBRE": "Nombre",
+    "APELLIDO": "Apellido",
+    "EDAD": "Edad",
+    "DNI": "DNI",
     "EMAIL": "Correo electrónico",
-    "PASSWORD": "Contraseña",
-    "BUTTON": "Registrar"
+    "CONTRASENA": "Contraseña",
+    "OBRA_SOCIAL": "Obra Social",
+    "FOTO_PERFIL": "Foto de perfil",
+    "SEGUNDA_IMAGEN": "Segunda imagen",
+    "ESPECIALIDAD": "Especialidad",
+    "ESCRIBA_ESPECIALIDAD": "Escriba una especialidad...",
+    "AGREGAR_ESPECIALIDAD_MANUAL": "Agregar especialidad manualmente",
+    "NUEVA_ESPECIALIDAD": "Nueva especialidad",
+    "CAPTCHA_PREGUNTA": "Pregunta captcha",
+    "CAPTCHA_PLACEHOLDER": "Ingrese su respuesta",
+    "CAPTCHA_ERROR": "Respuesta incorrecta al captcha",
+    "BOTON_REGISTRAR": "Registrar",
+    "BOTON_CANCELAR": "Cancelar"
   }
 }

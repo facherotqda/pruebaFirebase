@@ -1,15 +1,15 @@
 {
   "HOME": {
-  "TITLE": "Bem-vindo à página inicial",
-  "DESCRIPTION": "Esta é a visualização inicial.",
-  "SELECT_LANGUAGE": "Selecione o idioma",
-  "SALIR": "Sair",
-  "BOTON_MIS_TURNOS": "Meus agendamentos",
-  "BOTON_MI_PERFIL": "Meu perfil",
-  "BOTON_TURNOS": "Agendamentos",
-  "BOTON_ADMIN_TURNOS": "Gerenciar Agendamentos",
-  "BOTON_ADMIN_USUARIOS": "Gerenciar Usuários",
-  "BOTON_ESTADISTICAS": "Estatísticas"
+    "TITLE": "Bem-vindo à página inicial",
+    "DESCRIPTION": "Esta é a visualização inicial.",
+    "SELECT_LANGUAGE": "Selecione o idioma",
+    "SALIR": "Sair",
+    "BOTON_MIS_TURNOS": "Meus agendamentos",
+    "BOTON_MI_PERFIL": "Meu perfil",
+    "BOTON_TURNOS": "Agendamentos",
+    "BOTON_ADMIN_TURNOS": "Gerenciar Agendamentos",
+    "BOTON_ADMIN_USUARIOS": "Gerenciar Usuários",
+    "BOTON_ESTADISTICAS": "Estatísticas"
   },
   "LOGIN": {
     "TITLE": "Entrar",
@@ -18,10 +18,29 @@
     "BUTTON": "Acessar"
   },
   "REGISTRO": {
-    "TITLE": "Registro de usuário",
-    "USERNAME": "Usuário",
+  "PACIENTE": "Paciente",
+  "ESPECIALISTA": "Especialista",
+  "TITULO": "Registro",
+  "TITLE": "Registro",
+    "VOLVER": "Voltar",
+    "NOMBRE": "Nome",
+    "APELLIDO": "Sobrenome",
+    "EDAD": "Idade",
+    "DNI": "Documento",
     "EMAIL": "E-mail",
-    "PASSWORD": "Senha",
-    "BUTTON": "Registrar"
+    "CONTRASENA": "Senha",
+    "OBRA_SOCIAL": "Convênio",
+    "FOTO_PERFIL": "Foto de perfil",
+  "SEGUNDA_IMAGEM": "Segunda imagem",
+  "SEGUNDA_IMAGEN": "Segunda imagem",
+    "ESPECIALIDAD": "Especialidade",
+    "ESCRIBA_ESPECIALIDAD": "Digite uma especialidade...",
+    "AGREGAR_ESPECIALIDAD_MANUAL": "Adicionar especialidade manualmente",
+    "NUEVA_ESPECIALIDAD": "Nova especialidade",
+    "CAPTCHA_PREGUNTA": "Pergunta captcha",
+    "CAPTCHA_PLACEHOLDER": "Digite sua resposta",
+    "CAPTCHA_ERROR": "Resposta incorreta ao captcha",
+    "BOTON_REGISTRAR": "Registrar",
+    "BOTON_CANCELAR": "Cancelar"
   }
 }

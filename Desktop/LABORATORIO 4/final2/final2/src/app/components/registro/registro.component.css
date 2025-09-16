@@ -1,3 +1,16 @@
+/* Estilo para el label del selector de idioma igual que en Home */
+.lang-label {
+  font-size: 1.15rem;
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-right: 0.7rem;
+  background: #e0f2fe;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.7rem;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(14,40,60,0.08);
+}
 /* Reglas globales */
 html, body {
     margin: 0;
