@@ -1,9 +1,15 @@
 {
   "HOME": {
-    "TITLE": "Welcome to the home page",
-    "DESCRIPTION": "This is the home view.",
-    "SELECT_LANGUAGE": "Select language",
-    "SALIR": "Logout"
+  "TITLE": "Welcome to the home page",
+  "DESCRIPTION": "This is the home view.",
+  "SELECT_LANGUAGE": "Select language",
+  "SALIR": "Logout",
+  "BOTON_MIS_TURNOS": "My appointments",
+  "BOTON_MI_PERFIL": "My profile",
+  "BOTON_TURNOS": "Appointments",
+  "BOTON_ADMIN_TURNOS": "Manage Appointments",
+  "BOTON_ADMIN_USUARIOS": "Manage Users",
+  "BOTON_ESTADISTICAS": "Statistics"
   },
   "LOGIN": {
     "TITLE": "Login",

@@ -100,10 +100,10 @@
           formControlName="usuario"
           [class.is-invalid]="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.errors?.['required']">
+        <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.errors?.['required']">
           El correo es obligatorio.
         </div>
-        <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.errors?.['email']">
+        <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.errors?.['email']">
           Ingresá un correo válido.
         </div>
       </div>
@@ -118,7 +118,7 @@
           formControlName="contrasena"
           [class.is-invalid]="loginForm.get('contrasena')?.touched && loginForm.get('contrasena')?.invalid"
         />
-        <div class="invalid-feedback" *ngIf="loginForm.get('contrasena')?.errors?.['required']">
+        <div class="invalid-feedback" *ngIf="loginForm.get('contrasena')?.touched && loginForm.get('contrasena')?.errors?.['required']">
           La contraseña es obligatoria.
         </div>
       </div>

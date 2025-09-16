@@ -1,9 +1,15 @@
 {
   "HOME": {
-    "TITLE": "Bem-vindo à página inicial",
-    "DESCRIPTION": "Esta é a visualização inicial.",
-    "SELECT_LANGUAGE": "Selecione o idioma",
-    "SALIR": "Sair"
+  "TITLE": "Bem-vindo à página inicial",
+  "DESCRIPTION": "Esta é a visualização inicial.",
+  "SELECT_LANGUAGE": "Selecione o idioma",
+  "SALIR": "Sair",
+  "BOTON_MIS_TURNOS": "Meus agendamentos",
+  "BOTON_MI_PERFIL": "Meu perfil",
+  "BOTON_TURNOS": "Agendamentos",
+  "BOTON_ADMIN_TURNOS": "Gerenciar Agendamentos",
+  "BOTON_ADMIN_USUARIOS": "Gerenciar Usuários",
+  "BOTON_ESTADISTICAS": "Estatísticas"
   },
   "LOGIN": {
     "TITLE": "Entrar",

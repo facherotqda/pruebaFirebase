@@ -1,3 +1,10 @@
+/* Forzar mensajes de error en rojo para feedback de campos inválidos */
+.invalid-feedback {
+  color: #dc3545 !important;
+  display: block;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
 .login-wrapper {
   background-image: url('../../../assets/img/fondo-azul.jpg');
   background-size: cover;

@@ -67,21 +67,21 @@ export class HomeComponent implements OnInit {
     switch (this.perfil) {
       case 'paciente':
         this.botones = [
-          { texto: this.translate.instant('HOME.BOTON_MIS_TURNOS') || 'Mis turnos', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/paciente' },
-          { texto: this.translate.instant('HOME.BOTON_MI_PERFIL') || 'Mi perfil', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/mi-perfil' }
+          { texto: 'HOME.BOTON_MIS_TURNOS', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/paciente' },
+          { texto: 'HOME.BOTON_MI_PERFIL', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/mi-perfil' }
         ];
         break;
       case 'especialista':
         this.botones = [
-          { texto: this.translate.instant('HOME.BOTON_TURNOS') || 'Turnos', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/especialista' },
-          { texto: this.translate.instant('HOME.BOTON_MI_PERFIL') || 'Mi perfil', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/mi-perfil' }
+          { texto: 'HOME.BOTON_TURNOS', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/especialista' },
+          { texto: 'HOME.BOTON_MI_PERFIL', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/mi-perfil' }
         ];
         break;
       case 'admin':
         this.botones = [
-          { texto: this.translate.instant('HOME.BOTON_ADMIN_TURNOS') || 'Administrar Turnos', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/admin' },
-          { texto: this.translate.instant('HOME.BOTON_ADMIN_USUARIOS') || 'Administrar Usuarios', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/usuarios' },
-          { texto: this.translate.instant('HOME.BOTON_ESTADISTICAS') || 'Estadísticas', imagen: '../../../assets/img/botonEstadisticas.png', ruta: '/estadisticas' }
+          { texto: 'HOME.BOTON_ADMIN_TURNOS', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/admin' },
+          { texto: 'HOME.BOTON_ADMIN_USUARIOS', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/usuarios' },
+          { texto: 'HOME.BOTON_ESTADISTICAS', imagen: '../../../assets/img/botonEstadisticas.png', ruta: '/estadisticas' }
         ];
         break;
       default:
