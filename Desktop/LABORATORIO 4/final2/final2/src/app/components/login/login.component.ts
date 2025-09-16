@@ -96,6 +96,7 @@ export class LoginComponent {
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredencialesService } from '../../services/credenciales.service';
 import { SupabaseDbService } from '../../services/supabase-db.service';
@@ -105,7 +106,7 @@ import { BotonesRedondosDirective } from '../../directivas/botones-redondos.dire
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MensajeComponent, BotonesRedondosDirective],
+  imports: [CommonModule, ReactiveFormsModule, MensajeComponent, BotonesRedondosDirective, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

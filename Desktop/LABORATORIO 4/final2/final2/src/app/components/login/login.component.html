@@ -84,8 +84,9 @@
   <!-- <button class="btn-cerrar-sesion" (click)="logout()">Volver</button> -->
 
   <div class="login-card">
-     <button class="btn-cerrar-sesion" (click)="volverHome()">← Volver</button>
-     
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%; min-height: 56px; margin-bottom: 16px;">
+      <button class="btn-cerrar-sesion" (click)="volverHome()" style="margin: 0 auto; display: block;">← Volver</button>
+    </div>
     <button class="btn-close" (click)="cancelar()">×</button>
     <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
@@ -138,7 +139,9 @@
     </form>
 
     <!-- ACCESO RÁPIDO -->
-    <div class="acceso-rapido mt-4 d-flex justify-content-center gap-3 flex-wrap">
+    <div class="acceso-rapido mt-4 d-flex flex-column align-items-center">
+      <span class="mb-2 fw-semibold">{{ 'LOGIN.ACCESO_RAPIDO' | translate }}</span>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
 
   <!--     <button botonesRedondos (click)="loginRapido('labip68624@cristout.com', 'fotoPerfilPaciente1')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilPaciente1'; else spinner1" src="assets/img/fotoPerfilPaciente1.jpg" alt="Paciente 1" />
@@ -147,28 +150,28 @@
         </ng-template>
       </button> -->
 
-      <button botonesRedondos (click)="loginRapido('asd3@gmail.com', 'fotoPerfilPaciente2')" [disabled]="cargando">
+        <button botonesRedondos (click)="loginRapido('asd3@gmail.com', 'fotoPerfilPaciente2')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilPaciente2'; else spinner2" src="assets/img/fotoPerfilPaciente2.jpg" alt="Paciente 2" />
         <ng-template #spinner2>
           <div class="spinner-border text-primary" role="status"></div>
         </ng-template>
       </button>
 
-      <button botonesRedondos (click)="loginRapido('asd5@gmail.com', 'fotoPerfilPaciente3')" [disabled]="cargando">
+        <button botonesRedondos (click)="loginRapido('asd5@gmail.com', 'fotoPerfilPaciente3')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilPaciente3'; else spinner3" src="assets/img/fotoPerfilPaciente3.jpg" alt="Paciente 3" />
         <ng-template #spinner3>
           <div class="spinner-border text-primary" role="status"></div>
         </ng-template>
       </button>
 
-      <button botonesRedondos (click)="loginRapido('asd2@gmail.com', 'fotoPerfilEspecialista1')" [disabled]="cargando">
+        <button botonesRedondos (click)="loginRapido('asd2@gmail.com', 'fotoPerfilEspecialista1')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilEspecialista1'; else spinner4" src="assets/img/fotoPerfilEspecialista1.jpg" alt="Especialista 1" />
         <ng-template #spinner4>
           <div class="spinner-border text-primary" role="status"></div>
         </ng-template>
       </button>
 
-      <button botonesRedondos (click)="loginRapido('asd@gmail.com', 'fotoPerfilEspecialista2')" [disabled]="cargando">
+        <button botonesRedondos (click)="loginRapido('asd@gmail.com', 'fotoPerfilEspecialista2')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilEspecialista2'; else spinner5" src="assets/img/fotoPerfilEspecialista2.jpg" alt="Especialista 2" />
         <ng-template #spinner5>
           <div class="spinner-border text-primary" role="status"></div>
@@ -176,7 +179,7 @@
       </button>
 
 
- <button botonesRedondos (click)="loginRapido('asd10@gmail.com', 'fotoPerfilEspecialista2')" [disabled]="cargando">
+  <button botonesRedondos (click)="loginRapido('asd10@gmail.com', 'fotoPerfilEspecialista2')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilEspecialista2'; else spinner5" src="assets/img/fotoPerfilEspecialista2.jpg" alt="Especialista 2" />
         <ng-template #spinner5>
           <div class="spinner-border text-primary" role="status"></div>
@@ -184,12 +187,13 @@
       </button>
 
 
-      <button botonesRedondos (click)="loginRapido('martinraularrua@gmail.com', 'fotoPerfilAdmin')" [disabled]="cargando">
+        <button botonesRedondos (click)="loginRapido('martinraularrua@gmail.com', 'fotoPerfilAdmin')" [disabled]="cargando">
         <img *ngIf="cargando !== 'fotoPerfilAdmin'; else spinner6" src="assets/img/fotoPerfilAdmin.jpg" alt="Admin" />
         <ng-template #spinner6>
           <div class="spinner-border text-primary" role="status"></div>
         </ng-template>
       </button>
+      </div>
     </div>
 
     <!-- MENSAJE -->
