@@ -13,9 +13,15 @@
   },
   "LOGIN": {
     "TITLE": "Login",
-    "USERNAME": "Username",
-    "PASSWORD": "Password",
-    "BUTTON": "Sign in"
+    "CORREO": "Email",
+    "CONTRASENA": "Password",
+    "BOTON_INGRESAR": "Sign in",
+    "BOTON_REGISTRARME": "Register",
+    "VOLVER": "Back",
+    "ACCESO_RAPIDO": "Quick access",
+    "OBLIGATORIO_CORREO": "Email is required.",
+    "OBLIGATORIO_CONTRASENA": "Password is required.",
+    "EMAIL_INVALIDO": "Enter a valid email."
   },
   "REGISTRO": {
   "PACIENTE": "Patient",

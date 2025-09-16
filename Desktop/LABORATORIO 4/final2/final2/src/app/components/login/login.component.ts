@@ -1,3 +1,4 @@
+// ...
 /* import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -96,8 +97,8 @@ export class LoginComponent {
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { CredencialesService } from '../../services/credenciales.service';
 import { SupabaseDbService } from '../../services/supabase-db.service';
 import { MensajeComponent } from '../mensaje/mensaje.component';
@@ -106,7 +107,7 @@ import { BotonesRedondosDirective } from '../../directivas/botones-redondos.dire
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MensajeComponent, BotonesRedondosDirective, TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MensajeComponent, BotonesRedondosDirective, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -120,16 +121,32 @@ export class LoginComponent {
   @Output() onLoginSuccess = new EventEmitter<any>();
   @Output() onCancel = new EventEmitter<void>();
 
+  selectedLang = 'es';
+
   constructor(
     private fb: FormBuilder,
     private credencialesService: CredencialesService,
     private supabaseDb: SupabaseDbService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.loginForm = this.fb.group({
       usuario: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required]
     });
+    this.selectedLang = this.translate.currentLang || this.translate.getDefaultLang() || 'es';
+  }
+
+  cambiarIdioma(lang: string) {
+    this.selectedLang = lang;
+    this.translate.use(lang);
+  }
+
+  cambiarIdiomaDesdeEvento(event: Event) {
+    const value = (event.target as HTMLSelectElement)?.value;
+    if (value) {
+      this.cambiarIdioma(value);
+    }
   }
 
   async login() {

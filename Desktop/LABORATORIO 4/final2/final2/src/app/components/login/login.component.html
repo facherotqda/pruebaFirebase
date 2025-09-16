@@ -80,20 +80,34 @@
     </div>
 </div> -->
 
+
+
+
 <div class="login-wrapper">
-  <!-- <button class="btn-cerrar-sesion" (click)="logout()">Volver</button> -->
+ 
 
+
+  
   <div class="login-card">
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%; min-height: 56px; margin-bottom: 16px;">
-      <button class="btn-cerrar-sesion" (click)="volverHome()" style="margin: 0 auto; display: block;">← Volver</button>
+    <div class="d-flex justify-content-center align-items-center lang-bar mb-3" style="width: 100%;">
+      <span class="lang-label me-2">{{ 'HOME.SELECT_LANGUAGE' | translate }}</span>
+      <select [value]="selectedLang" (change)="cambiarIdiomaDesdeEvento($event)" class="form-select w-auto">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+        <option value="pt">Português</option>
+      </select>
     </div>
-    <button class="btn-close" (click)="cancelar()">×</button>
-    <h2 class="text-center mb-4">Iniciar Sesión</h2>
-
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="d-flex flex-column gap-3">
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%; min-height: 56px; margin-bottom: 16px;">
+      <button class="btn-cerrar-sesion" (click)="volverHome()" style="margin: 0 auto; display: block;">← {{ 'LOGIN.VOLVER' | translate }}</button>
+    </div>
+  <button class="btn-close" (click)="cancelar()">×</button>
+  <h2 class="text-center mb-4">{{ 'LOGIN.TITLE' | translate }}</h2>
+
+      <!-- ...resto del formulario... -->
       <!-- Campo EMAIL -->
       <div>
-        <label for="usuario" class="form-label">Correo electrónico</label>
+        <label for="usuario" class="form-label">{{ 'LOGIN.CORREO' | translate }}</label>
         <input
           id="usuario"
           type="email"
@@ -102,16 +116,16 @@
           [class.is-invalid]="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.invalid"
         />
         <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.errors?.['required']">
-          El correo es obligatorio.
+          {{ 'LOGIN.OBLIGATORIO_CORREO' | translate }}
         </div>
         <div class="invalid-feedback" *ngIf="loginForm.get('usuario')?.touched && loginForm.get('usuario')?.errors?.['email']">
-          Ingresá un correo válido.
+          {{ 'LOGIN.EMAIL_INVALIDO' | translate }}
         </div>
       </div>
 
       <!-- Campo CONTRASEÑA -->
       <div>
-        <label for="contrasena" class="form-label">Contraseña</label>
+        <label for="contrasena" class="form-label">{{ 'LOGIN.CONTRASENA' | translate }}</label>
         <input
           id="contrasena"
           type="password"
@@ -120,7 +134,7 @@
           [class.is-invalid]="loginForm.get('contrasena')?.touched && loginForm.get('contrasena')?.invalid"
         />
         <div class="invalid-feedback" *ngIf="loginForm.get('contrasena')?.touched && loginForm.get('contrasena')?.errors?.['required']">
-          La contraseña es obligatoria.
+          {{ 'LOGIN.OBLIGATORIO_CONTRASENA' | translate }}
         </div>
       </div>
 
@@ -131,8 +145,8 @@
       <button type="button" class="btn btn-outline-secondary w-100" (click)="irARegistro()">Registrarme</button> -->
 
 <div class="botones-login">
-  <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-  <button type="button" class="btn btn-outline-secondary w-100" (click)="irARegistro()">Registrarme</button>
+  <button type="submit" class="btn btn-primary w-100">{{ 'LOGIN.BOTON_INGRESAR' | translate }}</button>
+  <button type="button" class="btn btn-outline-secondary w-100" (click)="irARegistro()">{{ 'LOGIN.BOTON_REGISTRARME' | translate }}</button>
 </div>
 
 

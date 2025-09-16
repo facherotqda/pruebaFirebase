@@ -13,9 +13,15 @@
   },
   "LOGIN": {
     "TITLE": "Iniciar sesión",
-    "USERNAME": "Usuario",
-    "PASSWORD": "Contraseña",
-    "BUTTON": "Entrar"
+    "CORREO": "Correo electrónico",
+    "CONTRASENA": "Contraseña",
+    "BOTON_INGRESAR": "Ingresar",
+    "BOTON_REGISTRARME": "Registrarme",
+    "VOLVER": "Volver",
+    "ACCESO_RAPIDO": "Acceso rápido",
+    "OBLIGATORIO_CORREO": "El correo es obligatorio.",
+    "OBLIGATORIO_CONTRASENA": "La contraseña es obligatoria.",
+    "EMAIL_INVALIDO": "Ingresá un correo válido."
   },
   "REGISTRO": {
   "PACIENTE": "Paciente",
