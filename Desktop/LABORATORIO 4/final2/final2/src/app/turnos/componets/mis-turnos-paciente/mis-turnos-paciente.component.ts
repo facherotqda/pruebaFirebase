@@ -38,6 +38,7 @@ export class MisTurnosPacienteComponent implements OnInit {
   mensajeEncuesta = '';
   horariosProcesados: string[] = [];
 
+
   readonly opciones12 = ['Muy buena', 'Buena', 'Mala', 'Muy mala'];
   readonly opciones3 = ['Sí', 'Puede ser', 'No'];
 
@@ -53,11 +54,15 @@ export class MisTurnosPacienteComponent implements OnInit {
     this.especialidades.set(espConImagen.slice(0, 10));
 
     this.encuestaForm = this.fb.group({
-      r1: ['', Validators.required],
-      r2: ['', Validators.required],
-      r3: ['', Validators.required]
+      comentario: ['', Validators.required],
+      estrellas: [0, Validators.required],
+      volveria: ['', Validators.required],
+      aspectos: [[], Validators.required],
+      satisfaccion: [5, Validators.required]
     });
   }
+
+
 
   seleccionarEspecialidad(e: string) {
     this.especialidadSeleccionada = e;
@@ -224,9 +229,11 @@ horasParaFecha(): string[] {
     try {
       await this.dbService.crearEncuesta({
         turno_id: this.turnoEncuesta.id!,
-        respuesta1: this.encuestaForm.value.r1!,
-        respuesta2: this.encuestaForm.value.r2!,
-        respuesta3: this.encuestaForm.value.r3!
+        comentario: this.encuestaForm.value.comentario,
+        estrellas: this.encuestaForm.value.estrellas,
+        volveria: this.encuestaForm.value.volveria,
+        aspectos: this.encuestaForm.value.aspectos,
+        satisfaccion: this.encuestaForm.value.satisfaccion
       });
       this.turnoEncuesta.completadaEncuesta = true;
       this.mensajeEncuesta = 'Encuesta enviada ✔';

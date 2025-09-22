@@ -23,10 +23,20 @@ export interface Turno {
 export interface Encuesta {
     id?: string;
     turno_id: string;
-    respuesta1: string;
-    respuesta2: string;
-    respuesta3: string;
+    comentario: string;
+    estrellas: number;
+    volveria: string;
+    aspectos: string[];
+    satisfaccion: number;
 }
+
+
+// export interface Encuesta {
+//     turno_id: string;
+//     respuesta1: string;
+//     respuesta2: string;
+//     respuesta3: string;
+// }
 
 export interface Disponibilidad {
     id?: string;
@@ -54,9 +64,9 @@ export interface EspecialistaCard {
     avatar_url?: string;
     especialidades: string[];
 }
-export interface Encuesta {
-    turno_id: string;
-    respuesta1: string;
-    respuesta2: string;
-    respuesta3: string;
-}
+// export interface Encuesta {
+//     turno_id: string;
+//     respuesta1: string;
+//     respuesta2: string;
+//     respuesta3: string;
+// }

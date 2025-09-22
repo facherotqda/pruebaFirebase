@@ -140,6 +140,7 @@
         <h5 class="mb-3">Encuesta de satisfacción</h5>
 
         <form [formGroup]="encuestaForm">
+            <!--
             <label class="form-label">¿Cómo valora la atención del especialista?</label>
             <select class="form-select mb-3" formControlName="r1">
                 <option value="" disabled>Seleccione…</option>
@@ -157,6 +158,68 @@
                 <option value="" disabled>Seleccione…</option>
                 <option *ngFor="let op of opciones3" [value]="op">{{ op }}</option>
             </select>
+            -->
+
+            <!-- 1. Cuadro de texto -->
+            <div class="mb-4">
+                <label class="form-label" for="comentario">Comentario sobre la atención</label>
+                <textarea id="comentario" class="form-control" formControlName="comentario" rows="4" style="min-width: 100%; min-height: 80px; resize: vertical; margin-bottom: 1.2rem;" placeholder="Escribe tu opinión"></textarea>
+            </div>
+
+            <!-- 2. Estrellas para calificar -->
+            <div class="mb-3">
+                <label class="form-label d-block">Calificación general</label>
+                <div class="d-flex align-items-center gap-2">
+                    <ng-container *ngFor="let star of [1,2,3,4,5]">
+                        <input type="radio" [id]="'estrella'+star" formControlName="estrellas" [value]="star" style="display:none;" />
+                        <label [for]="'estrella'+star" style="font-size:2rem;cursor:pointer;">
+                            <span [style.color]="star <= encuestaForm.get('estrellas')?.value ? '#ffc107' : '#ccc'">&#9733;</span>
+                        </label>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- 3. Radio button -->
+            <div class="mb-3">
+                <label class="form-label d-block">¿Volverías a atenderte aquí?</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="volveria" id="volveriaSi" value="si">
+                    <label class="form-check-label" for="volveriaSi">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="volveria" id="volveriaNo" value="no">
+                    <label class="form-check-label" for="volveriaNo">No</label>
+                </div>
+            </div>
+
+            <!-- 4. Check box -->
+            <div class="mb-4">
+                <label class="form-label d-block">¿Qué aspectos te gustaron?</label>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" formControlName="aspectos" value="rapidez" id="aspectoRapidez">
+                    <label class="form-check-label" for="aspectoRapidez">Rapidez</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" formControlName="aspectos" value="amabilidad" id="aspectoAmabilidad">
+                    <label class="form-check-label" for="aspectoAmabilidad">Amabilidad</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" formControlName="aspectos" value="instalaciones" id="aspectoInstalaciones">
+                    <label class="form-check-label" for="aspectoInstalaciones">Instalaciones</label>
+                </div>
+            </div>
+
+            <!-- 5. Control de rango -->
+                        <div class="mb-3">
+                                <label class="form-label" for="satisfaccion">Nivel de satisfacción</label>
+                                <input type="range" id="satisfaccion" class="form-range" min="1" max="10" formControlName="satisfaccion" />
+                                <span class="ms-2">
+                                    {{ encuestaForm.get('satisfaccion')?.value || 5 }}/10
+                                    <span *ngIf="encuestaForm.get('satisfaccion')?.value <= 3" class="badge bg-danger ms-2">Bajo</span>
+                                    <span *ngIf="encuestaForm.get('satisfaccion')?.value > 3 && encuestaForm.get('satisfaccion')?.value < 8" class="badge bg-warning text-dark ms-2">Medio</span>
+                                    <span *ngIf="encuestaForm.get('satisfaccion')?.value >= 8" class="badge bg-success ms-2">Alto</span>
+                                </span>
+                        </div>
         </form>
 
         <div *ngIf="cargandoEncuesta" class="text-center my-2">
