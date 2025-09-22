@@ -227,14 +227,20 @@ horasParaFecha(): string[] {
     this.cargandoEncuesta = true;
     this.mensajeEncuesta = '';
     try {
-      await this.dbService.crearEncuesta({
+      const aspectosValue = this.encuestaForm.value.aspectos;
+      const encuestaPayload = {
         turno_id: this.turnoEncuesta.id!,
         comentario: this.encuestaForm.value.comentario,
         estrellas: this.encuestaForm.value.estrellas,
         volveria: this.encuestaForm.value.volveria,
-        aspectos: this.encuestaForm.value.aspectos,
-        satisfaccion: this.encuestaForm.value.satisfaccion
-      });
+        aspectos: Array.isArray(aspectosValue) ? (aspectosValue.length > 0 ? aspectosValue[0] : '') : aspectosValue,
+        satisfaccion: this.encuestaForm.value.satisfaccion,
+        respuesta1: null,
+        respuesta2: null,
+        respuesta3: null
+      };
+      console.log('Payload encuesta a Supabase:', encuestaPayload);
+      await this.dbService.crearEncuesta(encuestaPayload);
       this.turnoEncuesta.completadaEncuesta = true;
       this.mensajeEncuesta = 'Encuesta enviada ✔';
       this.encuestaModalVisible.set(false);

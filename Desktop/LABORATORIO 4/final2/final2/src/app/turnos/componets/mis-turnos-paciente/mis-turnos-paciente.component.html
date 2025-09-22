@@ -228,8 +228,18 @@
         <small class="text-success" *ngIf="mensajeEncuesta">{{ mensajeEncuesta }}</small>
         <br>
         <div class="d-flex gap-2 mt-3">
-            <button class="btn btn-success" [disabled]="encuestaForm.invalid || cargandoEncuesta"
-                (click)="enviarEncuesta()">Enviar</button>
+                        <button 
+                                class="btn btn-success"
+                                [ngStyle]="{
+                                    'background-color': (encuestaForm.invalid || cargandoEncuesta) ? '#bdbdbd' : '#198754',
+                                    'border-color': (encuestaForm.invalid || cargandoEncuesta) ? '#bdbdbd' : '#198754',
+                                    'color': (encuestaForm.invalid || cargandoEncuesta) ? '#fff' : '#fff',
+                                    'cursor': (encuestaForm.invalid || cargandoEncuesta) ? 'not-allowed' : 'pointer'
+                                }"
+                                [disabled]="encuestaForm.invalid || cargandoEncuesta"
+                                (click)="enviarEncuesta()">
+                                Enviar
+                        </button>
             <button class="btn btn-secondary" [disabled]="cargandoEncuesta"
                 (click)="cancelarEncuesta()">Cancelar</button>
         </div>
