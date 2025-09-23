@@ -33,6 +33,11 @@ export class MisTurnosPacienteComponent implements OnInit {
 
   encuestaModalVisible = signal(false);
   encuestaForm!: FormGroup;
+  aspectosOpciones = [
+    { label: 'Rapidez', value: 'rapidez' },
+    { label: 'Amabilidad', value: 'amabilidad' },
+    { label: 'Instalaciones', value: 'instalaciones' }
+  ];
   turnoEncuesta: Turno | null = null;
   cargandoEncuesta = false;
   mensajeEncuesta = '';
@@ -57,7 +62,7 @@ export class MisTurnosPacienteComponent implements OnInit {
       comentario: ['', Validators.required],
       estrellas: [0, Validators.required],
       volveria: ['', Validators.required],
-      aspectos: [[], Validators.required],
+      aspectos: this.fb.array(this.aspectosOpciones.map(() => false), [Validators.required]),
       satisfaccion: [5, Validators.required]
     });
   }
@@ -227,17 +232,17 @@ horasParaFecha(): string[] {
     this.cargandoEncuesta = true;
     this.mensajeEncuesta = '';
     try {
-      const aspectosValue = this.encuestaForm.value.aspectos;
+      const aspectosRaw = this.encuestaForm.value.aspectos;
+      const aspectosSeleccionados = this.aspectosOpciones
+        .filter((_, i) => aspectosRaw[i])
+        .map(opt => opt.label);
       const encuestaPayload = {
         turno_id: this.turnoEncuesta.id!,
         comentario: this.encuestaForm.value.comentario,
         estrellas: this.encuestaForm.value.estrellas,
         volveria: this.encuestaForm.value.volveria,
-        aspectos: Array.isArray(aspectosValue) ? (aspectosValue.length > 0 ? aspectosValue[0] : '') : aspectosValue,
-        satisfaccion: this.encuestaForm.value.satisfaccion,
-        respuesta1: null,
-        respuesta2: null,
-        respuesta3: null
+        aspectos: aspectosSeleccionados,
+        satisfaccion: this.encuestaForm.value.satisfaccion
       };
       console.log('Payload encuesta a Supabase:', encuestaPayload);
       await this.dbService.crearEncuesta(encuestaPayload);

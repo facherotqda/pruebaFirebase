@@ -1,0 +1,139 @@
+<div class="estad-wrapper">
+    <button class="btn-salir" (click)="cerrarSesion()">Salir</button>
+
+    <div class="estad-card">
+
+
+        <h2 class="mb-4 text-center">Estadísticas del Sistema 2</h2>
+
+        <!-- 1. Cantidad de visitas que tuvo la clínica -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Cantidad de visitas a la clínica</h5>
+                <!-- Placeholder para gráfico de visitas -->
+                <canvas id="grafVisitas"></canvas>
+                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+            </div>
+        </section>
+
+        <!-- 2. Cantidad de pacientes por especialidad -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Pacientes por especialidad</h5>
+                <!-- Placeholder para gráfico de pacientes por especialidad -->
+                <canvas id="grafPacientesEspecialidad"></canvas>
+                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+            </div>
+        </section>
+
+        <!-- 3. Cantidad de médicos por especialidad -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Médicos por especialidad</h5>
+                <!-- Placeholder para gráfico de médicos por especialidad -->
+                <canvas id="grafMedicosEspecialidad"></canvas>
+                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+            </div>
+        </section>
+
+        <!-- 4. Informe basado en la encuesta al cliente -->
+                <section class="mb-4">
+                        <div class="graf-box">
+                                <h5 class="graf-titulo">Resultados de encuestas a clientes</h5>
+                                <!-- Gráfico de encuestas -->
+                                <canvas id="grafEncuestas"></canvas>
+                                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+                                <!-- Tabla de encuestas -->
+                                <div class="mt-4">
+                                    <table class="table table-bordered table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Comentario</th>
+                                                <th>Estrellas</th>
+                                                <th>Volvería</th>
+                                                <th>Aspectos</th>
+                                                <th>Satisfacción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let encuesta of encuestas">
+                                                <td>{{ encuesta.comentario }}</td>
+                                                <td>{{ encuesta.estrellas }}</td>
+                                                <td>{{ encuesta.volveria }}</td>
+                                                <td>
+                                                    <ng-container *ngIf="encuesta.aspectos && encuesta.aspectos.length; else sinAspectos">
+                                                        <span *ngFor="let asp of encuesta.aspectos; let last = last">
+                                                            {{ asp }}<span *ngIf="!last">, </span>
+                                                        </span>
+                                                    </ng-container>
+                                                    <ng-template #sinAspectos>-</ng-template>
+                                                </td>
+                                                <td>{{ encuesta.satisfaccion }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                </section>
+
+        <!-- 5. Informe por cantidad de visitas (tabla o gráfico) -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Detalle de visitas (tabla)</h5>
+                <!-- Placeholder para tabla de visitas -->
+                <table class="table table-sm">
+                    <thead><tr><th>Usuario</th><th>Fecha</th><th>Hora</th></tr></thead>
+                    <tbody>
+                        <!-- Aquí se llenarán los datos -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. Selección de paciente y turnos -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Turnos por paciente seleccionado</h5>
+                <label>Seleccionar paciente:</label>
+                <select class="form-select mb-2" style="max-width:300px;">
+                    <option value="">-- Seleccione --</option>
+                    <!-- Aquí se llenarán los pacientes -->
+                </select>
+                <!-- Placeholder para tabla de turnos -->
+                <table class="table table-sm">
+                    <thead><tr><th>Fecha</th><th>Hora</th><th>Especialidad</th><th>Estado</th></tr></thead>
+                    <tbody>
+                        <!-- Aquí se llenarán los turnos -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sección original de gráficos (no se borra) -->
+        <section>
+            <div class="estad-grid">
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos por especialidad</h5>
+                    <app-turnos-especialidad #grafEsp></app-turnos-especialidad>
+                </div>
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos por día (últimos&nbsp;15)</h5>
+                    <app-turnos-dia #grafDia></app-turnos-dia>
+                </div>
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos solicitados por médico</h5>
+                    <app-turnos-solicitados-medico #grafSol></app-turnos-solicitados-medico>
+                </div>
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos finalizados por médico</h5>
+                    <app-turnos-finalizados-medico #grafFin></app-turnos-finalizados-medico>
+                </div>
+            </div>
+            <br>
+            <div class="text-end mb-3">
+                <button class="btn btn-success" (click)="descargarReportes()">Descargar reportes</button>
+            </div>
+        </section>
+
+    </div>
+</div>

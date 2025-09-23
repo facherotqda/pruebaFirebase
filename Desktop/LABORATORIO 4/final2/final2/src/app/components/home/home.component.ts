@@ -81,7 +81,8 @@ export class HomeComponent implements OnInit {
         this.botones = [
           { texto: 'HOME.BOTON_ADMIN_TURNOS', imagen: '../../../assets/img/botonTurnos.png', ruta: '/turnos/admin' },
           { texto: 'HOME.BOTON_ADMIN_USUARIOS', imagen: '../../../assets/img/botonUsuarios.png', ruta: '/usuarios' },
-          { texto: 'HOME.BOTON_ESTADISTICAS', imagen: '../../../assets/img/botonEstadisticas.png', ruta: '/estadisticas' }
+          { texto: 'HOME.BOTON_ESTADISTICAS', imagen: '../../../assets/img/botonEstadisticas.png', ruta: '/estadisticas' },
+          { texto: 'Estadísticas 2', imagen: '../../../assets/img/botonEstadisticas.png', ruta: '/estadisticas2' }
         ];
         break;
       default:

@@ -1,3 +1,4 @@
+// (eliminado: definición fuera de clase)
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
@@ -7,11 +8,29 @@ import { Turno, Encuesta, Disponibilidad, Especialidad, EspecialistaCard } from 
   providedIn: 'root'
 })
 export class SupabaseDbService {
+
   private supabase: SupabaseClient;
 
   constructor() {
     this.supabase = createClient(environment.apiUrl, environment.publicAnonKey);
   }
+
+  /**
+   * Alias para compatibilidad con componentes existentes
+   */
+  async getEncuestas() {
+    return await this.obtenerTodasLasEncuestas();
+  }
+
+  async obtenerTodasLasEncuestas() {
+    const { data, error } = await this.supabase.from('encuestas').select('*');
+    if (error) throw error;
+    return data;
+  }
+
+
+
+
 
   async obtenerUsuarioActual(userAuthId: string) {
     const { data, error } = await this.supabase

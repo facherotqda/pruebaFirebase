@@ -195,17 +195,13 @@
             <!-- 4. Check box -->
             <div class="mb-4">
                 <label class="form-label d-block">¿Qué aspectos te gustaron?</label>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" formControlName="aspectos" value="rapidez" id="aspectoRapidez">
-                    <label class="form-check-label" for="aspectoRapidez">Rapidez</label>
-                </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" formControlName="aspectos" value="amabilidad" id="aspectoAmabilidad">
-                    <label class="form-check-label" for="aspectoAmabilidad">Amabilidad</label>
-                </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" formControlName="aspectos" value="instalaciones" id="aspectoInstalaciones">
-                    <label class="form-check-label" for="aspectoInstalaciones">Instalaciones</label>
+                <div formArrayName="aspectos">
+                  <div *ngFor="let aspecto of aspectosOpciones; let i = index" class="form-check mb-2">
+                      <input class="form-check-input" type="checkbox"
+                          [formControlName]="i"
+                          [id]="'aspecto' + aspecto.value">
+                      <label class="form-check-label" [for]="'aspecto' + aspecto.value">{{ aspecto.label }}</label>
+                  </div>
                 </div>
             </div>
 

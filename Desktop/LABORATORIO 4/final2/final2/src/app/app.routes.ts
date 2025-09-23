@@ -13,7 +13,9 @@ import { LoginComponent } from '../../src/app/components/login/login.component';
  import { TurnosGuard } from './guards/turnos.guard';
 
 
- import { EstadisticasComponent } from './components/estadisticas/estadisticas.component'
+
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component'
+import { Estadisticas2Component } from './components/estadisticas2/estadisticas2.component';
 
 
 
@@ -28,7 +30,8 @@ export const routes: Routes = [
      { path: 'mi-perfil/:id', component: MiPerfilComponent ,data: { animation: 'PerfilPageID' }},
      { path: 'historia-clinica', component: HistoriaClinicaComponent },
     { path: 'historia-clinica/:id', component: HistoriaClinicaComponent },
-     { path: 'estadisticas', component: EstadisticasComponent ,data: { animation: 'estadisticasPage' }},
+    { path: 'estadisticas', component: EstadisticasComponent ,data: { animation: 'estadisticasPage' }},
+    { path: 'estadisticas2', component: Estadisticas2Component ,data: { animation: 'estadisticas2Page' }},
     {
         path: 'usuarios',
         component: UsuariosComponent,
