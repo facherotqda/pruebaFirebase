@@ -131,6 +131,7 @@ export class MiPerfilComponent implements OnInit {
   async buscarTurnos() {
     const termino = this.busquedaEspecialista.trim().toLowerCase();
     this.turnosEncontrados.set([]);
+    this.mensaje.set(null);
 
     if (!termino || !this.pacienteId) {
       return;
