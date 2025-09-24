@@ -85,8 +85,8 @@ export class RegistroComponent implements OnInit {
         Validators.email
       ]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
-  obraSocial: ['', Validators.required],
-      especialidad: [''],
+  obraSocial: [''],
+  especialidad: [''],
       nuevaEspecialidad: [''],
       agregarEspecialidadManualmente: [false],
       captcha: ['', Validators.required]
@@ -129,6 +129,12 @@ export class RegistroComponent implements OnInit {
   }
 
   async registrar() {
+       // Validar obra social solo si es paciente
+       if (this.perfilSeleccionado === 'paciente' && !this.registroForm.get('obraSocial')?.value) {
+         console.log('Obra social es obligatoria para paciente');
+         this.registroForm.get('obraSocial')?.markAsTouched();
+         throw new Error('La obra social es obligatoria para pacientes.');
+       }
 
      console.log('Botón registrar presionado');
      try {
