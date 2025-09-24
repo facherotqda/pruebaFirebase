@@ -17,11 +17,35 @@
 
         <!-- 2. Cantidad de pacientes por especialidad -->
         <section class="mb-4">
-            <div class="graf-box">
-                <h5 class="graf-titulo">Pacientes por especialidad</h5>
-                <canvas id="grafPacientesEspecialidad"></canvas>
-                <button class="btn btn-descarga mt-2">Descargar Pacientes por especialidad</button>
-            </div>
+                        <div class="graf-box">
+                                <h5 class="graf-titulo">Pacientes por especialidad</h5>
+                                <canvas id="grafPacientesEspecialidad"></canvas>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReportePacientes()">Descargar Pacientes por especialidad</button>
+                                <div class="mt-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered align-middle" style="font-size: 1.1rem;">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th style="min-width: 160px; text-align:center;">Especialidad</th>
+                                                    <th style="min-width: 160px; text-align:center;">Nombre</th>
+                                                    <th style="min-width: 160px; text-align:center;">Apellido</th>
+                                                    <th style="min-width: 100px; text-align:center;">Edad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngFor="let esp of pacientesPorEspecialidad | keyvalue">
+                                                    <tr *ngFor="let paciente of esp.value">
+                                                        <td style="text-align:center; font-weight:600; background:#f8f9fa;">{{ esp.key }}</td>
+                                                        <td style="text-align:center;">{{ paciente.nombre }}</td>
+                                                        <td style="text-align:center;">{{ paciente.apellido }}</td>
+                                                        <td style="text-align:center;">{{ paciente.edad }}</td>
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                        </div>
         </section>
 
                 <!-- 3. Cantidad de médicos por especialidad -->

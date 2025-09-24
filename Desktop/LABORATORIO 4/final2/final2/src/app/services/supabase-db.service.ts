@@ -1,3 +1,4 @@
+// ...existing code...
 // (eliminado: definición fuera de clase)
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -8,6 +9,43 @@ import { Turno, Encuesta, Disponibilidad, Especialidad, EspecialistaCard } from 
   providedIn: 'root'
 })
 export class SupabaseDbService {
+  /**
+   * Devuelve un objeto: { [especialidad]: [{nombre, apellido, edad} ...] } solo para pacientes
+   */
+  async obtenerPacientesPorEspecialidad() {
+    // 1. Obtener todos los turnos realizados y sus especialidades y paciente_id
+    const { data: turnos, error: errorTurnos } = await this.supabase
+      .from('vista_turnos_con_nombres')
+      .select('paciente_id, especialidad');
+    if (errorTurnos) throw errorTurnos;
+
+    // 2. Filtrar turnos con paciente_id válido (no null, no undefined, no empty string)
+    const validTurnos = turnos.filter(t => t.paciente_id && typeof t.paciente_id === 'string' && t.paciente_id.length === 36);
+    const pacienteIds = [...new Set(validTurnos.map(t => t.paciente_id))];
+    let pacientes: Array<{user_auth_id: string, nombre: string, apellido: string, edad: number}> = [];
+    if (pacienteIds.length) {
+      const { data: usuarios, error: errorUsuarios } = await this.supabase
+        .from('usuarios')
+        .select('user_auth_id, nombre, apellido, edad')
+        .in('user_auth_id', pacienteIds);
+      if (errorUsuarios) throw errorUsuarios;
+      pacientes = usuarios;
+    }
+
+    // 3. Agrupar por especialidad
+    const resultado: { [key: string]: Array<{nombre: string, apellido: string, edad: number}> } = {};
+    for (const turno of validTurnos) {
+      const paciente = pacientes.find(p => p.user_auth_id === turno.paciente_id);
+      if (!paciente) continue;
+      const esp = turno.especialidad;
+      if (!resultado[esp]) resultado[esp] = [];
+      // Evitar duplicados
+      if (!resultado[esp].some(p => p.nombre === paciente.nombre && p.apellido === paciente.apellido && p.edad === paciente.edad)) {
+        resultado[esp].push({ nombre: paciente.nombre, apellido: paciente.apellido, edad: paciente.edad });
+      }
+    }
+    return resultado;
+  }
   /**
    * Devuelve un objeto: { [especialidad]: [{nombre, apellido, edad} ...] }
    */

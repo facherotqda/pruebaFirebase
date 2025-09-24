@@ -20,7 +20,7 @@ import { TurnosFinalizadosMedicoComponent } from '../turnos-finalizados-medico/t
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    LogIngresosComponent,
+    
     TurnosEspecialidadComponent,
     TurnosDiaComponent,
     TurnosSolicitadosMedicoComponent,
@@ -30,6 +30,96 @@ import { TurnosFinalizadosMedicoComponent } from '../turnos-finalizados-medico/t
   styleUrls: ['./estadisticas2.component.css']
 })
 export class Estadisticas2Component implements OnInit {
+  async descargarReportePacientes() {
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1000, 400] });
+    // Cargar logo
+    const logo = await this.base64Image('assets/img/logoClinica.png');
+    doc.addImage(logo, 'PNG', 450, 10, 100, 100);
+    doc.setFontSize(18);
+    doc.text('Pacientes por especialidad', 500, 130, { align: 'center' });
+
+    // Tabla de pacientes por especialidad
+    let y = 180;
+    doc.setFontSize(14);
+    doc.text('Especialidad   Nombre   Apellido   Edad', 100, y);
+    y += 24;
+    for (const esp of Object.keys(this.pacientesPorEspecialidad)) {
+      for (const paciente of this.pacientesPorEspecialidad[esp]) {
+        const fila = `${esp.padEnd(15)} ${paciente.nombre.padEnd(15)} ${paciente.apellido.padEnd(15)} ${paciente.edad}`;
+        doc.text(fila, 100, y);
+        y += 20;
+        if (y > 180 + 200) {
+          doc.addPage();
+          y = 40;
+        }
+      }
+    }
+    doc.save('reporte-pacientes-especialidad.pdf');
+  }
+  pacientesPorEspecialidad: { [key: string]: Array<{nombre: string, apellido: string, edad: number}> } = {};
+  chartPacientes: Chart | null = null;
+
+  async cargarPacientesPorEspecialidad() {
+    try {
+      this.pacientesPorEspecialidad = await this.db.obtenerPacientesPorEspecialidad();
+      console.log('Pacientes por especialidad:', this.pacientesPorEspecialidad);
+      this.graficarPacientesPorEspecialidad();
+    } catch (error) {
+      this.pacientesPorEspecialidad = {};
+      console.error('Error al cargar pacientes por especialidad:', error);
+    }
+  }
+
+  graficarPacientesPorEspecialidad() {
+    const ctx = document.getElementById('grafPacientesEspecialidad') as HTMLCanvasElement;
+    if (!ctx) return;
+    const especialidades = Object.keys(this.pacientesPorEspecialidad);
+    const cantidades = especialidades.map(e => this.pacientesPorEspecialidad[e].length);
+    if (this.chartPacientes) this.chartPacientes.destroy();
+    // Colores alternos para barras
+    const colores = [
+      '#007bff', '#28a745', '#ffc107', '#17a2b8', '#6610f2', '#fd7e14', '#dc3545', '#20c997', '#6f42c1', '#343a40'
+    ];
+    this.chartPacientes = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: especialidades,
+        datasets: [{
+          label: 'Cantidad de pacientes',
+          data: cantidades,
+          backgroundColor: especialidades.map((_, i) => colores[i % colores.length]),
+          borderWidth: 4,
+          barPercentage: 0.85,
+          categoryPercentage: 0.7
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { bodyFont: { size: 22, weight: 'bold' }, titleFont: { size: 22, weight: 'bold' } }
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: { size: 28, weight: 'bold' },
+              color: '#212529',
+              padding: 24,
+              maxRotation: 0,
+              minRotation: 0,
+              autoSkip: false
+            },
+            grid: { display: false }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { font: { size: 24, weight: 'bold' }, color: '#212529', stepSize: 1 },
+            grid: { color: '#e9ecef' }
+          }
+        }
+      }
+    });
+  }
   async descargarReporteMedicos() {
     const canvas = document.getElementById('grafMedicosEspecialidad') as HTMLCanvasElement;
     if (!canvas) return;
@@ -100,14 +190,14 @@ export class Estadisticas2Component implements OnInit {
         responsive: false,
         plugins: {
           legend: { display: false },
-          tooltip: { bodyFont: { size: 18 }, titleFont: { size: 18 } }
+          tooltip: { bodyFont: { size: 22, weight: 'bold' }, titleFont: { size: 22, weight: 'bold' } }
         },
         scales: {
           x: {
             ticks: {
-              font: { size: 20 },
-              color: '#343a40',
-              padding: 20,
+              font: { size: 28, weight: 'bold' },
+              color: '#212529',
+              padding: 24,
               maxRotation: 0,
               minRotation: 0,
               autoSkip: false
@@ -116,7 +206,7 @@ export class Estadisticas2Component implements OnInit {
           },
           y: {
             beginAtZero: true,
-            ticks: { font: { size: 18 }, color: '#343a40', stepSize: 1 },
+            ticks: { font: { size: 24, weight: 'bold' }, color: '#212529', stepSize: 1 },
             grid: { color: '#e9ecef' }
           }
         }
@@ -156,9 +246,10 @@ export class Estadisticas2Component implements OnInit {
   ngOnInit(): void { }
 
   async ngAfterViewInit() {
-  await this.cargarEncuestas();
-  this.graficarEncuestas();
-  await this.cargarMedicosPorEspecialidad();
+    await this.cargarEncuestas();
+    this.graficarEncuestas();
+    await this.cargarMedicosPorEspecialidad();
+    await this.cargarPacientesPorEspecialidad();
   }
 
   async cargarEncuestas() {
@@ -202,15 +293,24 @@ export class Estadisticas2Component implements OnInit {
         responsive: false,
         plugins: {
           legend: { display: false },
-          tooltip: { bodyFont: { size: 16 }, titleFont: { size: 16 } }
+          tooltip: { bodyFont: { size: 22, weight: 'bold' }, titleFont: { size: 22, weight: 'bold' } }
         },
         scales: {
-          x: { ticks: { font: { size: 16 } } },
+          x: {
+            ticks: {
+              font: { size: 14, weight: 'bold' },
+              color: '#212529',
+              padding: 10,
+              maxRotation: 0,
+              minRotation: 0,
+              autoSkip: false
+            },
+            grid: { display: false }
+          },
           y: {
             beginAtZero: true,
             ticks: {
-              font: { size: 16 },
-              stepSize: 1,
+              font: { size: 24, weight: 'bold' }, color: '#212529', stepSize: 1,
               precision: 0
             }
           }
