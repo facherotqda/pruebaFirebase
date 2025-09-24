@@ -11,7 +11,25 @@
             <div class="graf-box">
                 <h5 class="graf-titulo">Cantidad de visitas a la clínica</h5>
                 <canvas id="grafVisitas"></canvas>
-                <button class="btn btn-descarga mt-2">Descargar cantidad de visitas</button>
+                <button class="btn btn-descarga mt-2" (click)="descargarReporteVisitas()">Descargar cantidad de visitas</button>
+                <div class="mt-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle" style="font-size: 1.1rem;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="min-width: 160px; text-align:center;">Fecha</th>
+                                    <th style="min-width: 160px; text-align:center;">Cantidad de visitas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let fecha of visitas | groupByFecha">
+                                    <td style="text-align:center; font-weight:600; background:#f8f9fa;">{{ fecha.fecha }}</td>
+                                    <td style="text-align:center;">{{ fecha.cantidad }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -120,18 +138,19 @@
                 </section>
 
         <!-- 5. Informe por cantidad de visitas (tabla o gráfico) -->
+<!-- 
         <section class="mb-4">
             <div class="graf-box">
                 <h5 class="graf-titulo">Detalle de visitas (tabla)</h5>
-                <!-- Placeholder para tabla de visitas -->
+     
                 <table class="table table-sm">
                     <thead><tr><th>Usuario</th><th>Fecha</th><th>Hora</th></tr></thead>
                     <tbody>
-                        <!-- Aquí se llenarán los datos -->
+                      
                     </tbody>
                 </table>
             </div>
-        </section>
+        </section> -->
 
         <!-- 6. Selección de paciente y turnos -->
         <section class="mb-4">
@@ -160,6 +179,7 @@
         </section>
 
         <!-- Sección original de gráficos (no se borra) -->
+        <!--
         <section>
             <div class="estad-grid">
                 <div class="graf-box">
@@ -184,6 +204,7 @@
                 <button class="btn btn-success" (click)="descargarReportes()">Descargar reportes</button>
             </div>
         </section>
+        -->
 
     </div>
 </div>
