@@ -1,0 +1,300 @@
+/* Estilo para el label del selector de idioma igual que en Home */
+.lang-label {
+  font-size: 1.15rem;
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-right: 0.7rem;
+  background: #e0f2fe;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.7rem;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(14,40,60,0.08);
+}
+/* Reglas globales */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f6f8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Fondo de pantalla completo */
+.registro-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../assets/img/fondoClinica.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Tarjeta del formulario */
+.registro-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 2rem 2.5rem;
+    border-radius: 1.2rem;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Campos del formulario */
+.form-control,
+.form-select {
+    margin-bottom: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+/* Ítems de sugerencia */
+.list-group-item {
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+    background-color: #eef4ff;
+}
+
+/* Selección de perfil */
+.zona-botones {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Botones grandes redondos */
+.boton-card {
+    background-color: #ffffffee;
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #003366;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+.boton-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.boton-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 18px rgba(0, 51, 102, 0.3);
+}
+
+.boton-card p {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Chips */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.chip {
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 16px;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+.chip button {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: 6px;
+    color: #003366;
+}
+
+/* Título */
+.titulo-centro {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #003366;
+}
+
+
+
+/* CAPTCHA FORMATO */
+.captcha-container {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.captcha-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #003366;
+  font-size: 1rem;
+}
+
+
+
+.captcha-input {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.4rem;
+  font-size: 1rem;
+  width: 200px; /* tamaño más compacto */
+  transition: border-color 0.2s ease;
+  text-align: center;
+}
+
+
+.captcha-input:focus {
+  border-color: #0066cc;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.captcha-error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.boton-acciones {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.boton-acciones button {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.boton-acciones .btn-primary {
+  background-color: #003366;
+  color: white;
+}
+
+.boton-acciones .btn-primary:hover {
+  background-color: #002244;
+}
+
+.boton-acciones .btn-secondary {
+  background-color: #cccccc;
+  color: #333;
+}
+
+.boton-acciones .btn-secondary:hover {
+  background-color: #aaaaaa;
+}
+
+.volver-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.btn-cerrar-sesion {
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  background-color: #ffffffcc;
+  border: 1.5px solid #003366;
+  border-radius: 8px;
+  color: #003366;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-cerrar-sesion:hover {
+  background-color: #003366;
+  color: #fff;
+}
+
+.alert {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+/* Éxito */
+.alert-success {
+  background-color: #daf5d7;
+  color: #2e7d32;
+  border: 1.5px solid #4caf50;
+}
+
+/* Error */
+.alert-danger {
+  background-color: #f9d6d5;
+  color: #c62828;
+  border: 1.5px solid #e53935;
+}
+
+/* Opcional: agregar sombra interna para un poco más de profundidad */
+.alert-success {
+  box-shadow: inset 0 0 10px #a5d6a7;
+}
+
+.alert-danger {
+  box-shadow: inset 0 0 10px #ef9a9a;
+}
+

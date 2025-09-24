@@ -1,0 +1,236 @@
+<div class="turnos-wrapper">
+    <button class="btn-salir" (click)="cerrarSesion()">Salir</button>
+    <div class="turnos-card">
+        <h2 class="text-center mb-4">Mis Turnos</h2>
+
+        <app-mensaje *ngIf="mensaje() as info" [tipo]="info.tipo" [mensaje]="info.texto"></app-mensaje>
+
+
+
+
+        <section class="panel-seleccion">
+            <label class="form-label">Filtrar por Especialidad</label>
+
+            <div class="especialidades-container">
+                <div *ngFor="let esp of especialidades()" class="especialidad-card text-center">
+                    <button botonesRedondos class="especialidad-btn" (click)="actualizarFiltroEspecialidad(esp.nombre)"
+                        [class.active]="filtro().filtroEspecialidad === esp.nombre" [attr.aria-label]="esp.nombre">
+                        <img [src]="esp.imagen_url || '/assets/img/placeholder-esp.png'" [alt]="esp.nombre"
+                            loading="lazy" />
+                    </button>
+                    <small class="nombre-label mt-1 d-block">{{ esp.nombre }}</small>
+                </div>
+
+                <button botonesRectangulares class="limpiar-btn"
+                    (click)="actualizarFiltroEspecialidad('')">Limpiar</button>
+            </div>
+
+
+            <Br>
+            <Br>
+            <div class="bloque-seleccion">
+                <label class="form-label">Pacientes</label>
+                <div class="contenedor-botones">
+                    <button *ngFor="let p of pacientes()" botonesRedondos class="btn-item"
+                        (click)="seleccionarEspecialista(p)" [class.active]="p === pacienteSeleccionado">
+                        <img [src]="p.avatar_url || '/assets/img/placeholder-user.png'" alt="paciente">
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="loadingFechas" class="spinner-wrapper text-center my-4">
+                <div class="spinner-border text-primary" role="status"></div>
+                <div class="mt-2">Cargando...</div>
+            </div>
+
+            <div *ngIf="fechasDisponibles().length" class="mb-3">
+                <label class="form-label">Fechas disponibles</label>
+                <div class="fechas-container">
+                    <button *ngFor="let f of fechasDisponibles()" botonesRectangulares class="fecha-btn"
+                        (click)="seleccionarFecha(f)" [class.active]="f === fechaSeleccionada"
+                        [attr.aria-label]="'Fecha ' + (f | date:'fullDate')">
+                        {{ f | date: 'dd/MM' }}
+                    </button>
+                </div>
+            </div>
+
+
+            <div *ngIf="fechaSeleccionada && horasParaFecha().length" class="mb-3">
+                <label class="form-label">Horarios disponibles</label>
+                <div class="fechas-container">
+                    <button *ngFor="let h of horasParaFecha()" botonesRectangulares class="hora-btn"
+                        (click)="seleccionarHorario({ horario: h, fecha: fechaSeleccionada! })">
+                        {{ formatearHora(h) }}
+                    </button>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div *ngIf="horarioSeleccionado" class="alert alert-info confirm-card">
+
+
+                <!--   <p><strong>Paciente:</strong> {{ pacienteSeleccionado?.nombre }} {{ pacienteSeleccionado?.apellido }} </p>
+ -->
+                <!-- <p>{{ especialistaSeleccionado?.nombre| json }}</p>
+                   <p>{{ especialidadSeleccionada| json }}</p> -->
+
+
+                <!--      <p>{{ this.nombrePaciente| json }}</p> -->
+
+
+                <p><strong>Especialista:</strong> {{ this.nombrePaciente }} </p>
+
+
+                <p><strong>Paciente:</strong>{{ especialistaSeleccionado?.nombre }} {{
+                    especialistaSeleccionado?.apellido }}</p>
+
+                <p><strong>Fecha y hora:</strong> {{ horarioSeleccionado.fecha | date:'fullDate' }} - {{
+                    horarioSeleccionado.horario }}</p>
+                <div class="botones-confirmacion">
+                    <button botonesRectangulares class="btn-confirmar" (click)="confirmarTurno()">Confirmar
+                        turno</button>
+                    <button botonesRectangulares class="btn-cancelar" (click)="cancelarSeleccion()">Cancelar</button>
+                </div>
+            </div>
+
+
+
+
+
+
+        </section>
+
+        <section class="panel-turnos">
+
+            <h2 class="mb-3">Listado turnos</h2>
+            <label class="form-label mt-3">Buscar Paciente (nombre o apellido)</label>
+            <input type="text" class="form-control buscar-input" [value]="filtro().filtroPaciente"
+                (input)="actualizarFiltroPaciente($any($event.target).value)" placeholder="Ingrese nombre o apellido" />
+            <br>
+            <br>
+
+
+            <div class="turnos-grid">
+                <div *ngFor="let turno of turnos().filter(cumpleFiltro)" class="card turno-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ turno.especialidad }}</h5>
+                        <p class="card-text">
+                            <strong>Paciente:</strong> {{ turno.nombre_paciente }} {{ turno.apellido_paciente }}<br />
+                            <strong>Fecha:</strong> {{ turno.fecha_turno | date:'fullDate' }}<br />
+                            <strong>Hora:</strong> {{ turno.hora_turno }}
+                        </p>
+                        <span class="badge bg-info text-dark">{{ turno.estado }}</span>
+
+                        <div class="acciones-turno"
+                            *ngIf="puedeCancelar(turno) || puedeRechazar(turno) || puedeFinalizar(turno)">
+                            <input type="text" class="form-control comentario-input"
+                                (input)="actualizarComentario(turno.id!, $any($event.target).value)"
+                                placeholder="Comentario..." />
+
+
+                        </div>
+
+
+                        <div class="acciones-turno">
+                            <button *ngIf="puedeAceptar(turno)" botonesRectangulares
+                                class="btn btn-success btn-sm action-btn" (click)="aceptarTurno(turno)">Aceptar</button>
+
+                            <button *ngIf="puedeCancelar(turno)" botonesRectangulares
+                                class="btn btn-warning btn-sm action-btn"
+                                (click)="cancelarTurno(turno)">Cancelar</button>
+
+                            <button *ngIf="puedeRechazar(turno)" botonesRectangulares
+                                class="btn btn-danger btn-sm action-btn"
+                                (click)="rechazarTurno(turno)">Rechazar</button>
+
+                            <button *ngIf="puedeFinalizar(turno)" botonesRectangulares
+                                class="btn btn-primary btn-sm action-btn"
+                                (click)="mostrarModalFinalizar(turno)">Finalizar</button>
+
+                            <button *ngIf="puedeVerResena(turno)" botonesRectangulares
+                                class="btn btn-info btn-sm action-btn" (click)="verResena(turno)">
+                                Ver Reseña
+                            </button>
+
+                            <button *ngIf="puedeVerResena(turno)" botonesRectangulares
+                                class="btn btn-primary btn-sm action-btn" (click)="mostrarModalFinalizar(turno)">Ver
+                                Historia Clinica</button>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal-backdrop" *ngIf="modalVisible()">
+            <div class="modal-card">
+                <h5 class="mb-3">Historia Clínica</h5>
+                <form [formGroup]="historiaForm">
+
+                    <div class="row g-2">
+                        <div class="col-6"><input class="form-control" placeholder="Altura" formControlName="altura" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Peso" formControlName="peso" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Temperatura"
+                                formControlName="temperatura" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Presión"
+                                formControlName="presion" /></div>
+                        <div class="col-6"><input class="form-control" placeholder="Clave 1" formControlName="clave1" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Valor 1" formControlName="valor1" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Clave 2" formControlName="clave2" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Valor 2" formControlName="valor2" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Clave 3" formControlName="clave3" />
+                        </div>
+                        <div class="col-6"><input class="form-control" placeholder="Valor 3" formControlName="valor3" />
+                        </div>
+                    </div>
+
+
+                  
+                    <div class="col-12">
+                        <label for="rangoControl" class="form-label">Nivel de dolor (0 a 100)</label>
+                        <input type="range" class="form-range" id="rangoControl" min="0" max="100"
+                            formControlName="rangoControl" />
+                    </div>
+
+                 
+                    <div class="col-12">
+                        <label for="numeroControl" class="form-label">Nivel de glucosa</label>
+                        <input type="number" class="form-control" id="numeroControl" formControlName="numeroControl" />
+                    </div>
+
+                  
+                    <div class="col-12 form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="switchControl"
+                            formControlName="switchControl" />
+                        <label class="form-check-label" for="switchControl">¿Fuma actualmente?</label>
+                    </div>
+
+
+
+
+                </form>
+
+                <br>
+                <div class="d-flex gap-2 mt-3">
+                    <button class="btn btn-success" (click)="guardarHistoria()">Guardar</button>
+                    <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                </div>
+                <small class="text-danger">{{ mensajeModal() }}</small>
+            </div>
+        </div>
+    </div>
+</div>

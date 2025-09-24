@@ -1,0 +1,292 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  overflow-y: auto;
+  background-image: url('/assets/img/fondoClinica.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 2rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.usuarios-wrapper {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #003366 #e6e6e6;
+}
+
+.usuarios-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.usuarios-wrapper::-webkit-scrollbar-thumb {
+  background: #003366;
+  border-radius: 4px;
+}
+.usuarios-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+h2,
+h4 {
+  color: #003366;
+}
+
+.btn {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.btn-accion {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+}
+.btn-accion:hover {
+  background-color: #117a8b;
+}
+
+.btn-ver {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+.btn-ver:hover {
+  background-color: #565e64;
+}
+
+.btn-exportar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+.btn-exportar:hover {
+  background-color: #218838;
+}
+
+.btn-crear {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+}
+.btn-crear:hover {
+  background-color: #001a33;
+}
+
+.table thead {
+  background-color: #003366;
+  color: #fff;
+}
+
+.custom-table td,
+.custom-table th {
+  border: 1px solid #cfd8e3;
+  vertical-align: middle;
+  padding: 0.5rem;
+}
+
+.perfil-selector .form-check {
+  font-weight: 600;
+  color: #003366;
+}
+
+.btn-salir {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #3546dc;
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+.btn-salir:hover {
+  background-color: #16067d;
+}
+
+.imprimir-turnos {
+  background-color: #f8f9fa;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  max-width: 400px;  /* Limitar ancho máximo */
+  margin: 0 auto 2rem; /* Centrar y dar espacio abajo */
+}
+
+.contenedor-pacientes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.paciente-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60px; /* Más pequeño */
+}
+
+.paciente-card img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #003366;
+  transition: transform 0.2s ease;
+}
+
+.paciente-card img:hover {
+  transform: scale(1.1);
+}
+
+.paciente-card small {
+  font-size: 0.7rem;
+  color: #003366;
+  margin-top: 0.25rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Contenedor del formulario */
+.formulario-admin {
+  background: #ffffff;
+  padding: 1.8rem 2.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.15);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Inputs generales */
+.formulario-admin input.form-control {
+  border: 1.8px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  font-size: 1rem;
+  color: #212529;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none;
+}
+
+.formulario-admin input.form-control::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Focus en inputs */
+.formulario-admin input.form-control:focus {
+  border-color: #0d6efd;
+  outline: none;
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.4);
+}
+
+/* Etiquetas para inputs tipo file */
+.form-label {
+  font-weight: 600;
+  color: #0b2447;
+  margin-bottom: 0.35rem;
+  display: inline-block;
+}
+
+/* Listado de especialidades estilo moderno */
+.list-group {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding-left: 0;
+}
+
+.list-group-item {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #0b2447;
+  transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover,
+.list-group-item:focus {
+  background-color: #e1e8ff;
+  color: #0d6efd;
+  outline: none;
+}
+
+/* Checkbox estilo personalizado */
+.form-check {
+  margin-top: 0.9rem;
+  font-weight: 600;
+  color: #0b2447;
+}
+
+.form-check-input {
+  width: 1.15rem;
+  height: 1.15rem;
+  cursor: pointer;
+  border: 1.6px solid #0d6efd;
+  transition: background-color 0.25s ease;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.form-check-label {
+  margin-left: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Botón Crear Usuario */
+.btn-crear {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 600;
+  padding: 0.55rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 260px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 1.5rem auto 0 auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-crear:hover,
+.btn-crear:focus {
+  background-color: #084cd9;
+  outline: none;
+  box-shadow: 0 0 14px rgba(8, 76, 217, 0.7);
+}
+
+/* Responsive pequeño para inputs */
+@media (max-width: 480px) {
+  .formulario-admin {
+    padding: 1.2rem 1.5rem;
+  }
+  .btn-crear {
+    max-width: 100%;
+  }
+}

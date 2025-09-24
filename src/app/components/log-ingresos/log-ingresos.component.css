@@ -1,0 +1,73 @@
+.log-wrapper {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Título */
+.log-wrapper h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Tabla responsive */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Tabla custom */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background-color: #fff;
+}
+
+.custom-table thead {
+  background-color: #e9f3ff;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 0.75rem;
+  border: 1px solid #c9def1;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.custom-table th {
+  font-weight: 600;
+  color: #003366;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f5faff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Mensaje sin datos */
+.text-muted {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+/* Botón Excel */
+.btn-outline-success {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover {
+  background-color: #198754;
+  color: white;
+  transform: translateY(-1px);
+}

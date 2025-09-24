@@ -1,0 +1,354 @@
+/* Mejorar visual de los botones de la zona-botones */
+.zona-botones {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.boton-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  padding: 1.5rem 2.2rem 1.2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  min-width: 180px;
+  min-height: 180px;
+}
+.boton-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+}
+.boton-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 1.2rem;
+}
+.boton-card p {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #003366;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+/* Estilos mejorados para label y select de idioma */
+.lang-bar {
+  margin-top: 1.5rem;
+  margin-right: 2.5rem;
+}
+.lang-label {
+  font-size: 1.15rem;
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-right: 0.7rem;
+  background: #e0f2fe;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.7rem;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(14,40,60,0.08);
+}
+.form-select {
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  border-radius: 0.7rem;
+  border: 1.5px solid #38bdf8;
+  background: #fff;
+  color: #0f172a;
+  font-weight: 600;
+  min-width: 140px;
+  box-shadow: 0 2px 8px rgba(14,40,60,0.08);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-select:focus {
+  border-color: #0284c7;
+  box-shadow: 0 4px 16px rgba(56,189,248,0.12);
+  outline: none;
+}
+/* Reset global y evitar scrolls */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc;
+  color: #1f2937;
+}
+
+/* Host ocupa todo el viewport */
+:host {
+  display: block;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Fondo fijo full pantalla */
+.home-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url('../../../assets/img/fondoClinica.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 0;
+  box-sizing: border-box;
+}
+
+/* Overlay semitransparente */
+.home-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(14, 40, 60, 0.6);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Contenedor principal */
+.contenido {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-align: center;
+  gap: 2rem;
+}
+
+/* Tarjeta central con efecto vidrio esmerilado y animación */
+.overlay-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(245, 249, 252, 0.95));
+  border-radius: 1.25rem;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    inset 0 0 15px rgba(255, 255, 255, 0.6);
+  max-width: 540px;
+  width: 90%;
+  padding: 3rem 2.5rem;
+  margin: 0 auto;
+  color: #1e293b;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  animation: fadeSlideIn 0.8s ease forwards;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: saturate(180%) blur(12px);
+}
+
+.overlay-card:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,1), rgba(235, 245, 252, 1));
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    inset 0 0 20px rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Título */
+.overlay-card h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2.2rem;
+  letter-spacing: 0.05em;
+  color: #0f172a;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor botones login/registro */
+.overlay-card > div {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+/* Botones circulares */
+.boton-icono {
+  background-color: #e0f2fe;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(14, 40, 60, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+}
+
+.boton-icono img {
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.boton-icono span {
+  font-size: 1rem;
+  color: #003366;
+  font-weight: 500;
+}
+
+.boton-icono:hover {
+  transform: scale(1.15);
+  box-shadow: 0 14px 40px rgba(14, 40, 60, 0.25);
+  background-color: #bae6fd;
+}
+
+.boton-icono:hover img {
+  filter: drop-shadow(0 0 3px rgba(14, 40, 60, 0.25));
+}
+
+/* Zona botones principal */
+.zona-botones {
+  margin: 0;
+  padding: 0;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Botones de la zona */
+.boton-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1rem;
+  width: 220px;
+  height: 180px;
+  box-shadow: 0 8px 24px rgba(14, 40, 60, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  color: #0b1e2d;
+  user-select: none;
+  padding: 1.2rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.boton-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 40px rgba(14, 40, 60, 0.25);
+}
+
+.boton-card p {
+  margin: 0;
+  margin-top: 0.6rem;
+  color: #064e3b;
+}
+
+.boton-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 0.8rem;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+}
+
+/* Botón salir */
+.btn-salir {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background-color: #047857;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(4, 120, 87, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
+}
+
+.btn-salir:hover {
+  background-color: #065f46;
+  box-shadow: 0 8px 24px rgba(6, 95, 70, 0.8);
+}
+
+/* Animación */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .boton-card {
+    width: 180px;
+    height: 160px;
+    font-size: 1rem;
+  }
+  .boton-icono {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+  }
+  .overlay-card {
+    padding: 2rem 1.5rem;
+    max-width: 90vw;
+  }
+  .overlay-card h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .boton-card {
+    width: 140px;
+    height: 130px;
+  }
+  .boton-icono {
+    width: 60px;
+    height: 60px;
+    margin-right: 12px;
+  }
+  .contenido {
+    padding: 1rem 1rem;
+  }
+}

@@ -1,0 +1,119 @@
+/* === Copiado de estadisticas.component.css para igualar estilos === */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: url('../../../assets/img/fondoClinica.jpg') center/cover no-repeat;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.estad-card {
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.estad-titulo {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.estad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.graf-box {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+.graf-box:hover {
+  transform: translateY(-4px);
+}
+.graf-titulo {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #003366;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.form-fechas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.form-fechas label {
+  font-size: 0.9rem;
+  color: #444;
+}
+.form-fechas input {
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 140px;
+  font-size: 0.9rem;
+}
+canvas {
+  width: 100% !important;
+  height: 240px !important;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+.btn-salir {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background-color: #3546dc;
+  color: #fff;
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-salir:hover {
+  background-color: #1f2ea3;
+  transform: scale(1.05);
+}
+.boton-descarga {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+.btn-descarga {
+  background-color: #198754;
+  color: #fff;
+  padding: 0.6rem 1.3rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-descarga:hover {
+  background-color: #146c43;
+  transform: translateY(-2px);
+}

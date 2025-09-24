@@ -1,0 +1,210 @@
+<div class="estad-wrapper">
+    <button class="btn-salir" (click)="cerrarSesion()">Salir</button>
+
+    <div class="estad-card">
+
+
+        <h2 class="mb-4 text-center">Estadísticas del Sistema 2</h2>
+
+        <!-- 1. Cantidad de visitas que tuvo la clínica -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Cantidad de visitas a la clínica</h5>
+                <canvas id="grafVisitas"></canvas>
+                <button class="btn btn-descarga mt-2" (click)="descargarReporteVisitas()">Descargar cantidad de visitas</button>
+                <div class="mt-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle" style="font-size: 1.1rem;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="min-width: 160px; text-align:center;">Fecha</th>
+                                    <th style="min-width: 160px; text-align:center;">Cantidad de visitas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let fecha of visitas | groupByFecha">
+                                    <td style="text-align:center; font-weight:600; background:#f8f9fa;">{{ fecha.fecha }}</td>
+                                    <td style="text-align:center;">{{ fecha.cantidad }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Cantidad de pacientes por especialidad -->
+        <section class="mb-4">
+                        <div class="graf-box">
+                                <h5 class="graf-titulo">Pacientes por especialidad</h5>
+                                <canvas id="grafPacientesEspecialidad"></canvas>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReportePacientes()">Descargar Pacientes por especialidad</button>
+                                <div class="mt-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered align-middle" style="font-size: 1.1rem;">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th style="min-width: 160px; text-align:center;">Especialidad</th>
+                                                    <th style="min-width: 160px; text-align:center;">Nombre</th>
+                                                    <th style="min-width: 160px; text-align:center;">Apellido</th>
+                                                    <th style="min-width: 100px; text-align:center;">Edad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngFor="let esp of pacientesPorEspecialidad | keyvalue">
+                                                    <tr *ngFor="let paciente of esp.value">
+                                                        <td style="text-align:center; font-weight:600; background:#f8f9fa;">{{ esp.key }}</td>
+                                                        <td style="text-align:center;">{{ paciente.nombre }}</td>
+                                                        <td style="text-align:center;">{{ paciente.apellido }}</td>
+                                                        <td style="text-align:center;">{{ paciente.edad }}</td>
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                        </div>
+        </section>
+
+                <!-- 3. Cantidad de médicos por especialidad -->
+                <section class="mb-4">
+                        <div class="graf-box">
+                                <h5 class="graf-titulo">Médicos por especialidad</h5>
+                                <canvas id="grafMedicosEspecialidad" width="1000" height="400"></canvas>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReporteMedicos()">Descargar Médicos por especialidad</button>
+                                <div class="mt-4">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered align-middle" style="font-size: 1.1rem;">
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th style="min-width: 160px; text-align:center;">Especialidad</th>
+                                                                        <th style="min-width: 160px; text-align:center;">Nombre</th>
+                                                                        <th style="min-width: 160px; text-align:center;">Apellido</th>
+                                                                        <th style="min-width: 100px; text-align:center;">Edad</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <ng-container *ngFor="let esp of medicosPorEspecialidad | keyvalue">
+                                                                        <tr *ngFor="let medico of esp.value">
+                                                                            <td style="text-align:center; font-weight:600; background:#f8f9fa;">{{ esp.key }}</td>
+                                                                            <td style="text-align:center;">{{ medico.nombre }}</td>
+                                                                            <td style="text-align:center;">{{ medico.apellido }}</td>
+                                                                            <td style="text-align:center;">{{ medico.edad }}</td>
+                                                                        </tr>
+                                                                    </ng-container>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                </div>
+                        </div>
+                </section>
+
+        <!-- 4. Informe basado en la encuesta al cliente -->
+                <section class="mb-4">
+                        <div class="graf-box">
+                                <h5 class="graf-titulo">Resultados de encuestas a clientes</h5>
+                                <canvas id="grafEncuestas" width="800" height="400" style="max-width:100%;"></canvas>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReporteEncuestas()">Descargar Reporte Encuestas</button>
+                                <!-- Tabla de encuestas -->
+                                <div class="mt-4">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-bordered align-middle">
+                                                                                    <thead class="table-light">
+                                                                                        <tr>
+                                                                                            <th>Comentario</th>
+                                                                                            <th>Estrellas</th>
+                                                                                            <th>Volvería</th>
+                                                                                            <th>Aspectos</th>
+                                                                                            <th>Satisfacción</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let encuesta of encuestas" style="height: 48px;">
+                                                                                            <td style="padding: 12px 18px;"><span style="white-space: pre-line;">{{ encuesta.comentario }}</span></td>
+                                                                                            <td style="padding: 12px 18px;"><strong>{{ encuesta.estrellas }}</strong></td>
+                                                                                            <td style="padding: 12px 18px;">{{ encuesta.volveria }}</td>
+                                                                                            <td style="padding: 12px 18px;">
+                                                                                                <ul style="margin-bottom:0; padding-left: 18px;">
+                                                                                                    <li *ngFor="let asp of encuesta.aspectos" style="margin-bottom:6px;">{{ asp }}</li>
+                                                                                                </ul>
+                                                                                            </td>
+                                                                                            <td style="padding: 12px 18px;">{{ encuesta.satisfaccion }}</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                </div>
+                        </div>
+                </section>
+
+        <!-- 5. Informe por cantidad de visitas (tabla o gráfico) -->
+<!-- 
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Detalle de visitas (tabla)</h5>
+     
+                <table class="table table-sm">
+                    <thead><tr><th>Usuario</th><th>Fecha</th><th>Hora</th></tr></thead>
+                    <tbody>
+                      
+                    </tbody>
+                </table>
+            </div>
+        </section> -->
+
+        <!-- 6. Selección de paciente y turnos -->
+        <section class="mb-4">
+            <div class="graf-box">
+                <h5 class="graf-titulo">Turnos por paciente seleccionado</h5>
+                <label>Seleccionar paciente:</label>
+                <select class="form-select mb-2" style="max-width:300px;" (change)="onPacienteSelectEvent($event)">
+                    <option value="">-- Seleccione --</option>
+                    <option *ngFor="let p of pacientes" [value]="p.paciente_id">
+                        {{ p.nombre }} {{ p.apellido }}
+                    </option>
+                </select>
+                <canvas id="grafTurnosPaciente" width="800" height="300" style="margin-bottom:20px;"></canvas>
+                <table class="table table-sm">
+                    <thead><tr><th>Fecha</th><th>Hora</th><th>Especialidad</th><th>Estado</th></tr></thead>
+                    <tbody>
+                        <tr *ngFor="let t of turnosFiltrados">
+                            <td>{{ t.fecha_hora.split(' ')[0] }}</td>
+                            <td>{{ t.fecha_hora.split(' ')[1] }}</td>
+                            <td>{{ t.especialidad }}</td>
+                            <td>{{ t.estado }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sección original de gráficos (no se borra) -->
+        <!--
+        <section>
+            <div class="estad-grid">
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos por especialidad</h5>
+                    <app-turnos-especialidad #grafEsp></app-turnos-especialidad>
+                </div>
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos por día (últimos&nbsp;15)</h5>
+                    <app-turnos-dia #grafDia></app-turnos-dia>
+                </div>
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos solicitados por médico</h5>
+                    <app-turnos-solicitados-medico #grafSol></app-turnos-solicitados-medico>
+                </div>
+                <div class="graf-box">
+                    <h5 class="graf-titulo">Turnos finalizados por médico</h5>
+                    <app-turnos-finalizados-medico #grafFin></app-turnos-finalizados-medico>
+                </div>
+            </div>
+            <br>
+            <div class="text-end mb-3">
+                <button class="btn btn-success" (click)="descargarReportes()">Descargar reportes</button>
+            </div>
+        </section>
+        -->
+
+    </div>
+</div>
