@@ -45,31 +45,52 @@
             <div class="col-12 col-md-6">
               <label class="form-label w-100">{{ 'REGISTRO.NOMBRE' | translate }}
                 <input formControlName="nombre" class="form-control mt-1" placeholder="{{ 'REGISTRO.NOMBRE' | translate }}" (keydown)="soloLetras($event)" />
+                <div *ngIf="registroForm.get('nombre')?.touched && registroForm.get('nombre')?.errors?.['required']" style="font-size: 0.9em;">
+                  <span style="color: red;">El nombre es obligatorio.</span>
+                </div>
               </label>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label w-100">{{ 'REGISTRO.APELLIDO' | translate }}
                 <input formControlName="apellido" class="form-control mt-1" placeholder="{{ 'REGISTRO.APELLIDO' | translate }}" (keydown)="soloLetras($event)" />
+                <div *ngIf="registroForm.get('apellido')?.touched && registroForm.get('apellido')?.errors?.['required']" style="font-size: 0.9em;">
+                  <span style="color: red;">El apellido es obligatorio.</span>
+                </div>
               </label>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label w-100">{{ 'REGISTRO.EDAD' | translate }}
                 <input formControlName="edad" class="form-control mt-1" placeholder="{{ 'REGISTRO.EDAD' | translate }}" (keydown)="soloNumeros($event)" />
+                <div *ngIf="registroForm.get('edad')?.touched && registroForm.get('edad')?.errors?.['min']" style="font-size: 0.9em;">
+                  <span style="color: red;">Debe ser mayor de 18 años.</span>
+                </div>
               </label>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label w-100">{{ 'REGISTRO.DNI' | translate }}
-                <input formControlName="dni" class="form-control mt-1" placeholder="{{ 'REGISTRO.DNI' | translate }}" (keydown)="soloNumeros($event)" />
+                <input formControlName="dni" class="form-control mt-1" placeholder="{{ 'REGISTRO.DNI' | translate }}" (keydown)="soloNumeros($event)" maxlength="8" />
               </label>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label w-100">{{ 'REGISTRO.EMAIL' | translate }}
                 <input formControlName="email" class="form-control mt-1" placeholder="{{ 'REGISTRO.EMAIL' | translate }}" />
+                <div *ngIf="registroForm.get('email')?.touched && registroForm.get('email')?.errors?.['required']" style="font-size: 0.9em;">
+                  <span style="color: red;">El email es obligatorio.</span>
+                </div>
+                <div *ngIf="registroForm.get('email')?.touched && !registroForm.get('email')?.errors?.['required'] && registroForm.get('email')?.value && registroForm.get('email')?.value.indexOf('@') === -1" style="font-size: 0.9em;">
+                  <span style="color: red;">El email debe contener '&#64;'.</span>
+                </div>
+                <div *ngIf="registroForm.get('email')?.touched && !registroForm.get('email')?.errors?.['required'] && registroForm.get('email')?.value && registroForm.get('email')?.value.indexOf('@') !== -1 && !registroForm.get('email')?.value.endsWith('.com')" style="font-size: 0.9em;">
+                  <span style="color: red;">El email debe terminar en '.com'.</span>
+                </div>
               </label>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label w-100">{{ 'REGISTRO.CONTRASENA' | translate }}
                 <input formControlName="contrasena" type="password" class="form-control mt-1" placeholder="{{ 'REGISTRO.CONTRASENA' | translate }}" />
+                <div *ngIf="registroForm.get('contrasena')?.touched && registroForm.get('contrasena')?.errors?.['minlength']" style="font-size: 0.9em;">
+                  <span style="color: red;">La contraseña debe tener al menos 6 caracteres.</span>
+                </div>
               </label>
             </div>
           </div>
@@ -78,6 +99,9 @@
             <div class="mb-3">
               <label class="form-label">{{ 'REGISTRO.OBRA_SOCIAL' | translate }}</label>
               <input formControlName="obraSocial" class="form-control" placeholder="{{ 'REGISTRO.OBRA_SOCIAL' | translate }}" />
+              <div *ngIf="registroForm.get('obraSocial')?.touched && registroForm.get('obraSocial')?.errors?.['required']" style="font-size: 0.9em;">
+                <span style="color: red;">La obra social es obligatoria.</span>
+              </div>
             </div>
             <div class="row g-3">
               <div class="col-12 col-md-6">
@@ -184,7 +208,12 @@
             </div> -->
 
   <div class="boton-acciones">
-   <button type="submit" class="btn-primary">{{ 'REGISTRO.BOTON_REGISTRAR' | translate }}</button>
+   <button 
+     type="submit" 
+     class="btn-primary"
+   >
+     {{ 'REGISTRO.BOTON_REGISTRAR' | translate }}
+   </button>
    <button type="button" class="btn-secondary" (click)="cancelar()">{{ 'REGISTRO.BOTON_CANCELAR' | translate }}</button>
 </div>
 

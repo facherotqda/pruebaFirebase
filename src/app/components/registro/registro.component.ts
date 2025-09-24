@@ -78,11 +78,14 @@ export class RegistroComponent implements OnInit {
     this.registroForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$')]],
       apellido: ['', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$')]],
-      edad: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+  edad: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(18)]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      email: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required]],
-      obraSocial: [''],
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+  obraSocial: ['', Validators.required],
       especialidad: [''],
       nuevaEspecialidad: [''],
       agregarEspecialidadManualmente: [false],
@@ -127,7 +130,106 @@ export class RegistroComponent implements OnInit {
 
   async registrar() {
 
-     console.log('Función registrar() ejecutada');
+     console.log('Botón registrar presionado');
+     try {
+       console.log('Valor de perfilSeleccionado:', this.perfilSeleccionado);
+       if (this.registroForm.invalid || !this.perfilSeleccionado) {
+         console.log('Formulario inválido o perfil no seleccionado');
+         Object.keys(this.registroForm.controls).forEach(key => {
+           const control = this.registroForm.get(key);
+           console.log(`Campo '${key}': valor='${control?.value}', valido=${control?.valid}, errores=`, control?.errors);
+         });
+         this.registroForm.markAllAsTouched();
+         throw new Error('Complete todos los campos requeridos.');
+       }
+
+       const f = this.registroForm.value;
+       console.log('Datos del formulario:', f);
+       const user = await this.credencialesService.registrarUsuario(f.email, f.contrasena);
+       console.log('Usuario registrado:', user);
+
+       let avatarUrl = '';
+       let imagenExtra1 = '';
+
+       if (this.perfilSeleccionado === 'paciente') {
+         if (!this.imagenPaciente1 || !this.imagenPaciente2) {
+           console.log('Faltan imágenes de paciente');
+           throw new Error('Debe subir las 2 imágenes');
+         }
+         console.log('Subiendo imagenPaciente1...');
+         avatarUrl = await this.credencialesService.subirAvatar(this.imagenPaciente1);
+         console.log('Subida imagenPaciente1:', avatarUrl);
+         imagenExtra1 = await this.credencialesService.subirAvatar(this.imagenPaciente2);
+         console.log('Subida imagenPaciente2:', imagenExtra1);
+       } else {
+         if (!this.imagenEspecialista) {
+           console.log('Falta imagen de especialista');
+           throw new Error('Debe subir una imagen');
+         }
+         avatarUrl = await this.credencialesService.subirAvatar(this.imagenEspecialista);
+         console.log('Subida imagenEspecialista:', avatarUrl);
+
+         if (this.agregarEspecialidadManualmente && f.nuevaEspecialidad) {
+           console.log('Agregando nueva especialidad:', f.nuevaEspecialidad);
+           await this.dbService.agregarEspecialidad(f.nuevaEspecialidad);
+           this.agregarEspecialidad(f.nuevaEspecialidad);
+         }
+       }
+
+       const extra: any = {};
+       if (this.perfilSeleccionado === 'paciente') {
+         extra.obra_social = f.obraSocial;
+         extra.imagen_extra_1 = imagenExtra1;
+       } else {
+         if (!this.especialidadesSeleccionadas.length) {
+           console.log('No se seleccionó ninguna especialidad');
+           throw new Error('Debe seleccionar al menos una especialidad');
+         }
+         extra.especialidades = this.especialidadesSeleccionadas;
+       }
+
+       console.log('Guardando datos de usuario en la base:', {
+         user,
+         nombre: f.nombre,
+         apellido: f.apellido,
+         edad: +f.edad,
+         dni: f.dni,
+         perfil: this.perfilSeleccionado,
+         avatarUrl,
+         extra
+       });
+       await this.credencialesService.guardarDatosUsuario(
+         user,
+         f.nombre,
+         f.apellido,
+         +f.edad,
+         f.dni,
+         this.perfilSeleccionado,
+         avatarUrl,
+         extra
+       );
+       console.log('Datos de usuario guardados correctamente');
+
+       this.mensajeTexto = 'Registro exitoso. Por favor, verifique su email.';
+       this.mensajeTipo = 'success';
+       this.mensajeVisible = true;
+       this.router.navigate(['/home']);
+     } catch (e: any) {
+       console.error('Error en el registro:', e);
+       if (e.status === 400) {
+         this.mensajeTexto = 'Formato inválido de email o contraseña.';
+       } else if (e.status === 422) {
+         this.mensajeTexto = 'No se pudo procesar el registro. Verifique los datos.';
+       } else if (e.status === 409) {
+         this.mensajeTexto = 'El email ya está registrado.';
+       } else if (e.message) {
+         this.mensajeTexto = e.message;
+       } else {
+         this.mensajeTexto = 'Ocurrió un error inesperado.';
+       }
+       this.mensajeTipo = 'error';
+       this.mensajeVisible = true;
+     }
 
     try {
       if (this.registroForm.invalid || !this.perfilSeleccionado) {

@@ -364,6 +364,22 @@ async confirmarTurno() {
       especialidadSeleccionada: this.especialidadSeleccionada
     });
 
+    if (!this.especialidadSeleccionada || !this.especialistaSeleccionado?.especialidades) {
+      let faltante = '';
+      if (!this.especialidadSeleccionada) {
+        faltante += 'especialidad';
+      }
+      if (!this.especialistaSeleccionado?.especialidades) {
+        if (faltante) faltante += ' y ';
+        faltante += 'especialidades';
+      }
+      console.log('Falta seleccionar:', faltante);
+      this.mensaje.set({
+        texto: `Falta seleccionar ${faltante} para confirmar el turno.`,
+        tipo: 'warning'
+      });
+      return;
+    }
     this.mensaje.set({
       texto: 'Faltan datos para confirmar el turno. Verificá todos los campos.',
       tipo: 'warning'
