@@ -96,7 +96,36 @@ gráfico
 Solo el administrador puede entrear a esta informacion, en el boton Estadistica 2
 Aqui se agrego informacion basicamente sobre los movimientos de la clinicas, cada grafico tiene una breve lista de informacion que acompania al grafico, se coloco el boton de descarga para descargar por pdf.
 
-[Informes con Graficos.docx](https://github.com/user-attachments/files/22520089/Informes.con.Graficos.docx)
+
+Se inicia sesión con el administrador 
+
+<img width="1169" height="877" alt="001" src="https://github.com/user-attachments/assets/1e61dd36-5883-4e44-9df2-73cc863bdcd3" />
+
+
+Al iniciar sesión con el admin, se habilita el botón estadística 2
+
+<img width="807" height="781" alt="002" src="https://github.com/user-attachments/assets/d39ba98e-0c6d-4fd3-a7f2-4d90fee1b491" />
+
+
+Informe por Cantidad de Visitas a la Clinica
+
+<img width="910" height="562" alt="003" src="https://github.com/user-attachments/assets/0a3c9191-8b84-406f-9b6c-b56ccbef7185" />
+
+Informe Pacientes por especialidad
+
+<img width="810" height="442" alt="004" src="https://github.com/user-attachments/assets/e2ebdd46-c9c5-4622-889a-670acd48864c" />
+
+Informe Médicos por especialidad
+
+<img width="810" height="422" alt="005" src="https://github.com/user-attachments/assets/44a62c45-d4ab-45d9-a603-a430bfd20370" />
+
+Informe Resultado encuestas a clientes
+
+<img width="855" height="358" alt="006" src="https://github.com/user-attachments/assets/a06229ce-983b-4a39-b495-5b2d166b1f3e" />
+
+Informe turnos por paciente seleccionado
+
+<img width="814" height="397" alt="007" src="https://github.com/user-attachments/assets/430e4213-9d0d-48dd-8dee-2cd73cc3b634" />
 
 
 
