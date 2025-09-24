@@ -1,3 +1,4 @@
+  
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { BotonesRedondosDirective } from '../../directivas/botones-redondos.dire
   styleUrls: ['./mi-perfil.component.css']
 })
 export class MiPerfilComponent implements OnInit {
+  nombreEspecialistaBusqueda: string = '';
   private auth = inject(CredencialesService);
   private db = inject(SupabaseDbService);
   private route = inject(ActivatedRoute);
@@ -87,6 +89,31 @@ export class MiPerfilComponent implements OnInit {
   async seleccionarPaciente(p: any) {
     this.pacienteSeleccionado.set(p);
     await this.cargarDetallePaciente(p.user_auth_id);
+  }
+
+
+// Busca los turnos del paciente filtrando por nombre parcial del especialista
+  async buscarTurnosPorEspecialistaNombre(nombreParcial: string) {
+    try {
+      const usuarioActual = await this.auth.getUsuarioActualAsync();
+      if (!usuarioActual) throw new Error('No se encontró el usuario actual.');
+      // Supabase: buscar turnos del paciente donde el nombre del especialista contenga el texto
+      const { data, error } = await this.db.getCliente()
+        .from('vista_turnos_con_nombres')
+        .select('*')
+        .eq('paciente_id', usuarioActual.id)
+        .ilike('especialista_nombre', `%${nombreParcial}%`);
+      if (error) throw error;
+      this.turnosEncontrados.set(data || []);
+      if (!this.turnosEncontrados()?.length) {
+        this.mensaje.set({ texto: 'No se encontraron turnos con ese especialista.', tipo: 'error' });
+      } else {
+        this.mensaje.set({ texto: 'Turnos encontrados.', tipo: 'success' });
+      }
+    } catch (e: any) {
+      this.mensaje.set({ texto: 'Error al buscar turnos por especialista.', tipo: 'error' });
+      console.error(e);
+    }
   }
 
   async cargarDetallePaciente(pacienteAuthId: string) {
