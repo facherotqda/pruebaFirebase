@@ -216,7 +216,7 @@ if (e.status === 400) {
   generarCaptcha() {
     const a = Math.floor(Math.random() * 10) + 1;
     const b = Math.floor(Math.random() * 10) + 1;
-    this.captchaPregunta = `¿Cuánto es ${a} + ${b}?`;
+    this.captchaPregunta = `¿ ${a} + ${b}?`;
     this.captchaResultado = (a + b).toString();
   }
 

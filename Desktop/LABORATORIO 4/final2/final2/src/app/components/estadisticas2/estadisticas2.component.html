@@ -138,15 +138,22 @@
             <div class="graf-box">
                 <h5 class="graf-titulo">Turnos por paciente seleccionado</h5>
                 <label>Seleccionar paciente:</label>
-                <select class="form-select mb-2" style="max-width:300px;">
+                <select class="form-select mb-2" style="max-width:300px;" (change)="onPacienteSelectEvent($event)">
                     <option value="">-- Seleccione --</option>
-                    <!-- Aquí se llenarán los pacientes -->
+                    <option *ngFor="let p of pacientes" [value]="p.paciente_id">
+                        {{ p.nombre }} {{ p.apellido }}
+                    </option>
                 </select>
-                <!-- Placeholder para tabla de turnos -->
+                <canvas id="grafTurnosPaciente" width="800" height="300" style="margin-bottom:20px;"></canvas>
                 <table class="table table-sm">
                     <thead><tr><th>Fecha</th><th>Hora</th><th>Especialidad</th><th>Estado</th></tr></thead>
                     <tbody>
-                        <!-- Aquí se llenarán los turnos -->
+                        <tr *ngFor="let t of turnosFiltrados">
+                            <td>{{ t.fecha_hora.split(' ')[0] }}</td>
+                            <td>{{ t.fecha_hora.split(' ')[1] }}</td>
+                            <td>{{ t.especialidad }}</td>
+                            <td>{{ t.estado }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

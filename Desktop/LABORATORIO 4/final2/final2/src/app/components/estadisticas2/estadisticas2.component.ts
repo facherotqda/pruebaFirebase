@@ -30,6 +30,11 @@ import { TurnosFinalizadosMedicoComponent } from '../turnos-finalizados-medico/t
   styleUrls: ['./estadisticas2.component.css']
 })
 export class Estadisticas2Component implements OnInit {
+  onPacienteSelectEvent(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const value = select ? select.value : '';
+    this.onPacienteSeleccionado(value);
+  }
   async descargarReportePacientes() {
     const doc = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1000, 400] });
     // Cargar logo
@@ -58,6 +63,13 @@ export class Estadisticas2Component implements OnInit {
   }
   pacientesPorEspecialidad: { [key: string]: Array<{nombre: string, apellido: string, edad: number}> } = {};
   chartPacientes: Chart | null = null;
+
+    // --- NUEVO: Turnos por paciente seleccionado ---
+    pacientes: Array<{ paciente_id: string, nombre: string, apellido: string }> = [];
+    turnos: Array<{ paciente_id: string, estado: string, especialidad: string, fecha_hora: string, nombre_paciente: string, apellido_paciente: string }> = [];
+    pacienteSeleccionado: string = '';
+    turnosFiltrados: Array<{ estado: string, especialidad: string, fecha_hora: string }> = [];
+    chartTurnosPaciente: Chart | null = null;
 
   async cargarPacientesPorEspecialidad() {
     try {
@@ -246,11 +258,74 @@ export class Estadisticas2Component implements OnInit {
   ngOnInit(): void { }
 
   async ngAfterViewInit() {
-    await this.cargarEncuestas();
-    this.graficarEncuestas();
-    await this.cargarMedicosPorEspecialidad();
-    await this.cargarPacientesPorEspecialidad();
+  await this.cargarEncuestas();
+  this.graficarEncuestas();
+  await this.cargarMedicosPorEspecialidad();
+  await this.cargarPacientesPorEspecialidad();
+  await this.cargarTurnosPorPaciente();
   }
+
+  // --- NUEVO: Cargar turnos y pacientes ---
+  async cargarTurnosPorPaciente() {
+    // Usar el método existente para obtener todos los turnos
+    this.turnos = await this.db.obtenerTodosLosTurnos();
+    // Extraer pacientes únicos
+    const pacientesMap: { [id: string]: { paciente_id: string, nombre: string, apellido: string } } = {};
+    for (const t of this.turnos) {
+      pacientesMap[t.paciente_id] = {
+        paciente_id: t.paciente_id,
+        nombre: t.nombre_paciente,
+        apellido: t.apellido_paciente
+      };
+    }
+    this.pacientes = Object.values(pacientesMap);
+  }
+
+  onPacienteSeleccionado(id: string) {
+    this.pacienteSeleccionado = id;
+    this.turnosFiltrados = this.turnos.filter(t => t.paciente_id === id);
+    this.graficarTurnosPorPaciente();
+  }
+
+  graficarTurnosPorPaciente() {
+    const ctx = document.getElementById('grafTurnosPaciente') as HTMLCanvasElement;
+    if (!ctx) return;
+    if (this.chartTurnosPaciente) this.chartTurnosPaciente.destroy();
+    // Etiquetas: especialidad + estado + fecha/hora
+    const labels = this.turnosFiltrados.map(t => `${t.especialidad} | ${t.estado} | ${t.fecha_hora}`);
+    const data = this.turnosFiltrados.map(() => 1); // Solo para mostrar barras
+    this.chartTurnosPaciente = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Turnos',
+          data,
+          backgroundColor: '#17a2b8',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { bodyFont: { size: 16 }, titleFont: { size: 16 } }
+        },
+        scales: {
+          x: {
+            ticks: { font: { size: 12 }, color: '#212529', autoSkip: false },
+            grid: { display: false }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { font: { size: 14 }, color: '#212529', stepSize: 1 },
+            grid: { color: '#e9ecef' }
+          }
+        }
+      }
+    });
+  }
+
 
   async cargarEncuestas() {
     // Consulta a la tabla encuestas
