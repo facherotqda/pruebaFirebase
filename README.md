@@ -29,6 +29,18 @@ Ajuste Registrar en paciente y especialista, se agregan validadores.
 
 
 
+No anda la busqueda del paciennte sobre especialista para consultar turnos. Ya se arreglo.
+
+
+<img width="532" height="702" alt="001_paciente Busca por nombre especialista" src="https://github.com/user-attachments/assets/abfe8d76-3835-4fd9-a792-dc3948ec668c" />
+
+Descarga de la consulta generada 
+<img width="1060" height="422" alt="001_01_paciente Busca por nombre especialista" src="https://github.com/user-attachments/assets/3566d0a6-ee0c-4798-92a3-bb77f1af7781" />
+
+Cuando no tiene Especialista asociado.
+<img width="631" height="642" alt="002_no tiene especialista asociado" src="https://github.com/user-attachments/assets/c14b0fe9-5885-4ad0-9c98-1b5944cc0083" />
+
+
 
 
 Sprint 6
