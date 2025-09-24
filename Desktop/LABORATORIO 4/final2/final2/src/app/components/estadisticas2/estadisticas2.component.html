@@ -12,7 +12,7 @@
                 <h5 class="graf-titulo">Cantidad de visitas a la clínica</h5>
                 <!-- Placeholder para gráfico de visitas -->
                 <canvas id="grafVisitas"></canvas>
-                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+                <button class="btn btn-descarga mt-2" (click)="descargarReporteEncuestas()">Descargar reporte</button>
             </div>
         </section>
 
@@ -41,37 +41,36 @@
                         <div class="graf-box">
                                 <h5 class="graf-titulo">Resultados de encuestas a clientes</h5>
                                 <!-- Gráfico de encuestas -->
-                                <canvas id="grafEncuestas"></canvas>
-                                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+                                <canvas id="grafEncuestas" width="800" height="400" style="max-width:100%;"></canvas>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReporteEncuestas()">Descargar reporte</button>
                                 <!-- Tabla de encuestas -->
                                 <div class="mt-4">
-                                    <table class="table table-bordered table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Comentario</th>
-                                                <th>Estrellas</th>
-                                                <th>Volvería</th>
-                                                <th>Aspectos</th>
-                                                <th>Satisfacción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let encuesta of encuestas">
-                                                <td>{{ encuesta.comentario }}</td>
-                                                <td>{{ encuesta.estrellas }}</td>
-                                                <td>{{ encuesta.volveria }}</td>
-                                                <td>
-                                                    <ng-container *ngIf="encuesta.aspectos && encuesta.aspectos.length; else sinAspectos">
-                                                        <span *ngFor="let asp of encuesta.aspectos; let last = last">
-                                                            {{ asp }}<span *ngIf="!last">, </span>
-                                                        </span>
-                                                    </ng-container>
-                                                    <ng-template #sinAspectos>-</ng-template>
-                                                </td>
-                                                <td>{{ encuesta.satisfaccion }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-bordered align-middle">
+                                                                                    <thead class="table-light">
+                                                                                        <tr>
+                                                                                            <th>Comentario</th>
+                                                                                            <th>Estrellas</th>
+                                                                                            <th>Volvería</th>
+                                                                                            <th>Aspectos</th>
+                                                                                            <th>Satisfacción</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr *ngFor="let encuesta of encuestas" style="height: 48px;">
+                                                                                            <td><span style="white-space: pre-line;">{{ encuesta.comentario }}</span></td>
+                                                                                            <td><strong>{{ encuesta.estrellas }}</strong></td>
+                                                                                            <td>{{ encuesta.volveria }}</td>
+                                                                                            <td>
+                                                                                                <ul style="margin-bottom:0; padding-left: 18px;">
+                                                                                                    <li *ngFor="let asp of encuesta.aspectos">{{ asp }}</li>
+                                                                                                </ul>
+                                                                                            </td>
+                                                                                            <td>{{ encuesta.satisfaccion }}</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
                                 </div>
                         </div>
                 </section>

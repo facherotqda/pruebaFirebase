@@ -30,9 +30,24 @@ import { TurnosFinalizadosMedicoComponent } from '../turnos-finalizados-medico/t
   styleUrls: ['./estadisticas2.component.css']
 })
 export class Estadisticas2Component implements OnInit {
+
+  async descargarReporteEncuestas() {
+    const canvas = document.getElementById('grafEncuestas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const imgData = canvas.toDataURL('image/png');
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'px', format: [800, 400] });
+    // Cargar logo
+    const logo = await this.base64Image('assets/img/logoClinica.png');
+    doc.addImage(logo, 'PNG', 350, 10, 100, 100);
+    doc.setFontSize(18);
+    doc.text('Resultados de encuestas a clientes', 400, 130, { align: 'center' });
+    doc.addImage(imgData, 'PNG', 50, 150, 700, 220);
+    doc.save('reporte-encuestas-clientes.pdf');
+  }
   encuestas: any[] = [];
   chartEncuestas: Chart | null = null;
   private auth = inject(CredencialesService);
+  private db: SupabaseDbService;
 
   readonly desde = signal<string>('');
   readonly hasta = signal<string>('');
@@ -42,6 +57,9 @@ export class Estadisticas2Component implements OnInit {
   @ViewChild('grafSol') grafSol!: TurnosSolicitadosMedicoComponent;
   @ViewChild('grafFin') grafFin!: TurnosFinalizadosMedicoComponent;
 
+  constructor(db: SupabaseDbService) {
+    this.db = db;
+  }
   ngOnInit(): void { }
 
   async ngAfterViewInit() {
@@ -51,9 +69,8 @@ export class Estadisticas2Component implements OnInit {
 
   async cargarEncuestas() {
     // Consulta a la tabla encuestas
-    const db = inject(SupabaseDbService);
     try {
-      this.encuestas = await db.getEncuestas();
+      this.encuestas = await this.db.getEncuestas();
       console.log('Encuestas cargadas:', this.encuestas);
     } catch (error) {
       this.encuestas = [];
@@ -65,6 +82,12 @@ export class Estadisticas2Component implements OnInit {
     // Ejemplo: gráfico de distribución de estrellas
     const ctx = document.getElementById('grafEncuestas') as HTMLCanvasElement;
     if (!ctx) return;
+    // Renderizar en alta resolución para máxima nitidez
+    const dpr = window.devicePixelRatio || 1;
+    ctx.width = 800 * dpr;
+    ctx.height = 400 * dpr;
+    ctx.style.width = '800px';
+    ctx.style.height = '400px';
     const estrellas = [1,2,3,4,5];
     const counts = estrellas.map(e => this.encuestas.filter(enc => enc.estrellas === e).length);
     if (this.chartEncuestas) this.chartEncuestas.destroy();
@@ -75,13 +98,22 @@ export class Estadisticas2Component implements OnInit {
         datasets: [{
           label: 'Cantidad',
           data: counts,
-          backgroundColor: '#007bff'
+          backgroundColor: '#007bff',
+          borderWidth: 2,
+          barPercentage: 0.7,
+          categoryPercentage: 0.6
         }]
       },
       options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } }
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { bodyFont: { size: 16 }, titleFont: { size: 16 } }
+        },
+        scales: {
+          x: { ticks: { font: { size: 16 } } },
+          y: { beginAtZero: true, ticks: { font: { size: 16 } } }
+        }
       }
     });
   }
