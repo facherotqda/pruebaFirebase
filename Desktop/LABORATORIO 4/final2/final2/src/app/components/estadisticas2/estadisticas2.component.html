@@ -10,9 +10,8 @@
         <section class="mb-4">
             <div class="graf-box">
                 <h5 class="graf-titulo">Cantidad de visitas a la clínica</h5>
-                <!-- Placeholder para gráfico de visitas -->
                 <canvas id="grafVisitas"></canvas>
-                <button class="btn btn-descarga mt-2" (click)="descargarReporteEncuestas()">Descargar reporte</button>
+                <button class="btn btn-descarga mt-2">Descargar cantidad de visitas</button>
             </div>
         </section>
 
@@ -20,29 +19,50 @@
         <section class="mb-4">
             <div class="graf-box">
                 <h5 class="graf-titulo">Pacientes por especialidad</h5>
-                <!-- Placeholder para gráfico de pacientes por especialidad -->
                 <canvas id="grafPacientesEspecialidad"></canvas>
-                <button class="btn btn-descarga mt-2">Descargar imagen</button>
+                <button class="btn btn-descarga mt-2">Descargar Pacientes por especialidad</button>
             </div>
         </section>
 
-        <!-- 3. Cantidad de médicos por especialidad -->
-        <section class="mb-4">
-            <div class="graf-box">
-                <h5 class="graf-titulo">Médicos por especialidad</h5>
-                <!-- Placeholder para gráfico de médicos por especialidad -->
-                <canvas id="grafMedicosEspecialidad"></canvas>
-                <button class="btn btn-descarga mt-2">Descargar imagen</button>
-            </div>
-        </section>
+                <!-- 3. Cantidad de médicos por especialidad -->
+                <section class="mb-4">
+                        <div class="graf-box">
+                                <h5 class="graf-titulo">Médicos por especialidad</h5>
+                                <canvas id="grafMedicosEspecialidad" width="1000" height="400"></canvas>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReporteMedicos()">Descargar Médicos por especialidad</button>
+                                <div class="mt-4">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered align-middle" style="font-size: 1.1rem;">
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th style="min-width: 160px; text-align:center;">Especialidad</th>
+                                                                        <th style="min-width: 160px; text-align:center;">Nombre</th>
+                                                                        <th style="min-width: 160px; text-align:center;">Apellido</th>
+                                                                        <th style="min-width: 100px; text-align:center;">Edad</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <ng-container *ngFor="let esp of medicosPorEspecialidad | keyvalue">
+                                                                        <tr *ngFor="let medico of esp.value">
+                                                                            <td style="text-align:center; font-weight:600; background:#f8f9fa;">{{ esp.key }}</td>
+                                                                            <td style="text-align:center;">{{ medico.nombre }}</td>
+                                                                            <td style="text-align:center;">{{ medico.apellido }}</td>
+                                                                            <td style="text-align:center;">{{ medico.edad }}</td>
+                                                                        </tr>
+                                                                    </ng-container>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                </div>
+                        </div>
+                </section>
 
         <!-- 4. Informe basado en la encuesta al cliente -->
                 <section class="mb-4">
                         <div class="graf-box">
                                 <h5 class="graf-titulo">Resultados de encuestas a clientes</h5>
-                                <!-- Gráfico de encuestas -->
                                 <canvas id="grafEncuestas" width="800" height="400" style="max-width:100%;"></canvas>
-                                <button class="btn btn-descarga mt-2" (click)="descargarReporteEncuestas()">Descargar reporte</button>
+                                <button class="btn btn-descarga mt-2" (click)="descargarReporteEncuestas()">Descargar Reporte Encuestas</button>
                                 <!-- Tabla de encuestas -->
                                 <div class="mt-4">
                                                                             <div class="table-responsive">
@@ -58,15 +78,15 @@
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <tr *ngFor="let encuesta of encuestas" style="height: 48px;">
-                                                                                            <td><span style="white-space: pre-line;">{{ encuesta.comentario }}</span></td>
-                                                                                            <td><strong>{{ encuesta.estrellas }}</strong></td>
-                                                                                            <td>{{ encuesta.volveria }}</td>
-                                                                                            <td>
+                                                                                            <td style="padding: 12px 18px;"><span style="white-space: pre-line;">{{ encuesta.comentario }}</span></td>
+                                                                                            <td style="padding: 12px 18px;"><strong>{{ encuesta.estrellas }}</strong></td>
+                                                                                            <td style="padding: 12px 18px;">{{ encuesta.volveria }}</td>
+                                                                                            <td style="padding: 12px 18px;">
                                                                                                 <ul style="margin-bottom:0; padding-left: 18px;">
-                                                                                                    <li *ngFor="let asp of encuesta.aspectos">{{ asp }}</li>
+                                                                                                    <li *ngFor="let asp of encuesta.aspectos" style="margin-bottom:6px;">{{ asp }}</li>
                                                                                                 </ul>
                                                                                             </td>
-                                                                                            <td>{{ encuesta.satisfaccion }}</td>
+                                                                                            <td style="padding: 12px 18px;">{{ encuesta.satisfaccion }}</td>
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>

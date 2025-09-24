@@ -30,6 +30,99 @@ import { TurnosFinalizadosMedicoComponent } from '../turnos-finalizados-medico/t
   styleUrls: ['./estadisticas2.component.css']
 })
 export class Estadisticas2Component implements OnInit {
+  async descargarReporteMedicos() {
+    const canvas = document.getElementById('grafMedicosEspecialidad') as HTMLCanvasElement;
+    if (!canvas) return;
+    const imgData = canvas.toDataURL('image/png');
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1000, 400] });
+    // Cargar logo
+    const logo = await this.base64Image('assets/img/logoClinica.png');
+    doc.addImage(logo, 'PNG', 450, 10, 100, 100);
+    doc.setFontSize(18);
+    doc.text('Médicos por especialidad', 500, 130, { align: 'center' });
+    doc.addImage(imgData, 'PNG', 100, 150, 800, 220);
+
+    // Tabla de médicos por especialidad
+    let y = 380;
+    doc.setFontSize(14);
+    doc.text('Especialidad   Nombre   Apellido   Edad', 100, y);
+    y += 24;
+    for (const esp of Object.keys(this.medicosPorEspecialidad)) {
+      for (const medico of this.medicosPorEspecialidad[esp]) {
+        const fila = `${esp.padEnd(15)} ${medico.nombre.padEnd(15)} ${medico.apellido.padEnd(15)} ${medico.edad}`;
+        doc.text(fila, 100, y);
+        y += 20;
+        if (y > 380 + 200) {
+          doc.addPage();
+          y = 40;
+        }
+      }
+    }
+    doc.save('reporte-medicos-especialidad.pdf');
+  }
+  medicosPorEspecialidad: { [key: string]: Array<{nombre: string, apellido: string, edad: number}> } = {};
+  chartMedicos: Chart | null = null;
+
+  async cargarMedicosPorEspecialidad() {
+    try {
+      this.medicosPorEspecialidad = await this.db.obtenerMedicosPorEspecialidad();
+      this.graficarMedicosPorEspecialidad();
+    } catch (error) {
+      this.medicosPorEspecialidad = {};
+      console.error('Error al cargar médicos por especialidad:', error);
+    }
+  }
+
+  graficarMedicosPorEspecialidad() {
+    const ctx = document.getElementById('grafMedicosEspecialidad') as HTMLCanvasElement;
+    if (!ctx) return;
+    const especialidades = Object.keys(this.medicosPorEspecialidad);
+    const cantidades = especialidades.map(e => this.medicosPorEspecialidad[e].length);
+    if (this.chartMedicos) this.chartMedicos.destroy();
+    // Colores alternos para barras
+    const colores = [
+      '#007bff', '#28a745', '#ffc107', '#17a2b8', '#6610f2', '#fd7e14', '#dc3545', '#20c997', '#6f42c1', '#343a40'
+    ];
+    this.chartMedicos = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: especialidades,
+        datasets: [{
+          label: 'Cantidad de médicos',
+          data: cantidades,
+          backgroundColor: especialidades.map((_, i) => colores[i % colores.length]),
+          borderWidth: 4,
+          barPercentage: 0.85,
+          categoryPercentage: 0.7
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { bodyFont: { size: 18 }, titleFont: { size: 18 } }
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: { size: 20 },
+              color: '#343a40',
+              padding: 20,
+              maxRotation: 0,
+              minRotation: 0,
+              autoSkip: false
+            },
+            grid: { display: false }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { font: { size: 18 }, color: '#343a40', stepSize: 1 },
+            grid: { color: '#e9ecef' }
+          }
+        }
+      }
+    });
+  }
 
   async descargarReporteEncuestas() {
     const canvas = document.getElementById('grafEncuestas') as HTMLCanvasElement;
@@ -63,8 +156,9 @@ export class Estadisticas2Component implements OnInit {
   ngOnInit(): void { }
 
   async ngAfterViewInit() {
-    await this.cargarEncuestas();
-    this.graficarEncuestas();
+  await this.cargarEncuestas();
+  this.graficarEncuestas();
+  await this.cargarMedicosPorEspecialidad();
   }
 
   async cargarEncuestas() {
@@ -112,7 +206,14 @@ export class Estadisticas2Component implements OnInit {
         },
         scales: {
           x: { ticks: { font: { size: 16 } } },
-          y: { beginAtZero: true, ticks: { font: { size: 16 } } }
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: { size: 16 },
+              stepSize: 1,
+              precision: 0
+            }
+          }
         }
       }
     });

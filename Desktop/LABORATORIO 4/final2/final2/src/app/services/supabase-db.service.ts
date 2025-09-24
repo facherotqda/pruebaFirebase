@@ -8,6 +8,27 @@ import { Turno, Encuesta, Disponibilidad, Especialidad, EspecialistaCard } from 
   providedIn: 'root'
 })
 export class SupabaseDbService {
+  /**
+   * Devuelve un objeto: { [especialidad]: [{nombre, apellido, edad} ...] }
+   */
+  async obtenerMedicosPorEspecialidad() {
+    const { data: usuarios, error } = await this.supabase
+      .from('usuarios')
+      .select('nombre, apellido, edad, especialidades')
+      .eq('perfil', 'especialista');
+    if (error) throw error;
+    // Mapear especialistas por especialidad
+    const resultado: { [key: string]: Array<{nombre: string, apellido: string, edad: number}> } = {};
+    for (const usuario of usuarios) {
+      if (Array.isArray(usuario.especialidades)) {
+        for (const esp of usuario.especialidades) {
+          if (!resultado[esp]) resultado[esp] = [];
+          resultado[esp].push({ nombre: usuario.nombre, apellido: usuario.apellido, edad: usuario.edad });
+        }
+      }
+    }
+    return resultado;
+  }
 
   private supabase: SupabaseClient;
 
