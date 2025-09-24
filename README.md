@@ -17,6 +17,20 @@ Firebase Dominios
 
 
 
+
+Ajuste Registrar en paciente y especialista, se agregan validadores.
+
+
+<img width="1058" height="965" alt="001_Especialista" src="https://github.com/user-attachments/assets/cc351641-fc18-43c1-8d56-695e2f04a208" />
+
+<img width="696" height="799" alt="002_paciente" src="https://github.com/user-attachments/assets/543577b8-0170-430d-827d-33267fbdf201" />
+
+
+
+
+
+
+
 Sprint 6
 ● Idiomas
 
